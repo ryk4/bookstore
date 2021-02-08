@@ -29,12 +29,12 @@ features (login, register, forgot paswd, etc), list books with search option and
 
 3. Extras
 - [ ] Menu bar
-- [ ] Login and registration button
+- [x] Login and registration button
 
 ## Login page
-- [ ] Login page containing email and password
+- [x] Login page containing email and password
 - [ ] "Remember me" option
-- [ ] "Forgot password" option
+- [x] "Forgot password" option
 - [ ] Register button
 
 ## Registration page
