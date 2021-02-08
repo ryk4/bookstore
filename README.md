@@ -1,62 +1,61 @@
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+# Book Store 
 
-## About Laravel (Rytis)
+This is a simple web application for managing books. This project contains authentication
+features (login, register, forgot paswd, etc), list books with search option and more.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+### Technologies used
+- Laravel (^8.0)
+- HTML5 and CSS (Bootstrap)
+- MySQL 
+- PHP 8
+- Docker
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Landing page
+1. List all books
+- [ ] Books displayed in 5x5 grid (Bootstrap)
+- [ ] The book has a title with author, cover, and genre
+- [ ] The book can have multiple authors and genres
+- [ ] All book covers must have consistent dimensions
+- [ ] When there are more than 25 books on a page, there will be [next] and [previous] buttons
+- [ ] Books uploaded last week should have something to display that they are [NEW]
+- [ ] The book may have a discount (by percentage), and I also would like to see that in the listing [10%]
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+2. Search bar
+- [ ] When searching for a book it should look for title and author
+- [ ] Lists them in the same layout as the landing page
+- [ ] A search bar must have a cookie that tracks the previous search you had
 
-## Learning Laravel
+3. Extras
+- [ ] Menu bar
+- [ ] Login and registration button
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+## Login page
+- [ ] Login page containing email and password
+- [ ] "Remember me" option
+- [ ] "Forgot password" option
+- [ ] Register button
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+## Registration page
+- [ ] Log in button
+- [ ] Fields: email, password, confirm password, date of birth
+- [ ] Password with "show password" option
 
-## Laravel Sponsors
+## Book page
+- [ ] Contains description
+- [ ] Users may leave reviews
+- [ ] Users may rate the book
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+## User account
+- [ ] Change password feature
+- [ ] Change email
+- [ ] Option to report a book (if there are discrepancies between some of the listed books)
+- [ ] Option to upload a book to the listing, then admin manually confirms if the book should be listed or not
+- [ ] Area to manage their books
+- [ ] Review the book (start + comments)
 
-### Premium Partners
-
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/)**
-- **[OP.GG](https://op.gg)**
-
-## Contributing
-
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+##Admin account
+- [ ] Option to change password
+- [ ] Reply to user's report
+- [ ] Manage and update all the books
