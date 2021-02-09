@@ -19,7 +19,7 @@ features (login, register, forgot paswd, etc), list books with search option and
 - [ ] The book can have multiple authors and genres
 - [ ] All book covers must have consistent dimensions
 - [ ] When there are more than 25 books on a page, there will be [next] and [previous] buttons
-- [ ] Books uploaded last week should have something to display that they are [NEW]
+- [ ] Books uploaded in the last week should have something to display that they are [NEW]
 - [ ] The book may have a discount (by percentage), and I also would like to see that in the listing [10%]
 
 2. Search bar
@@ -33,7 +33,7 @@ features (login, register, forgot paswd, etc), list books with search option and
 
 ## Login page
 - [x] Login page containing email and password
-- [ ] "Remember me" option
+- [x] "Remember me" option
 - [x] "Forgot password" option
 - [ ] Register button
 
