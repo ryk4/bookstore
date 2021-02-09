@@ -13,12 +13,20 @@ class CreateBookTable extends Migration
      */
     public function up()
     {
-        Schema::create('book', function (Blueprint $table) {
-            $table->bigIncrements('id')->autoIncrement();
+        Schema::create('books', function (Blueprint $table) {
+            $table->id();
             $table->string('title');
             $table->string('cover')->nullable();//will contain url to image
             $table->double('price', 8, 2);
+            $table->integer('discount');//0 - not approved, 1- approved
+            $table->integer('status');//0 - not approved, 1- approved
             $table->timestamps();
+
+            //FKS
+            $table->foreignId('user_id')->constrained();
+            //only works if following proper naming conventions for schema tables/columns
+
+
         });
     }
 
@@ -29,6 +37,6 @@ class CreateBookTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('book');
+        Schema::dropIfExists('books');
     }
 }

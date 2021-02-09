@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\BookController;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,9 +14,24 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('home');
-});
+
+
+
+//API
+/*
+ * RK
+ * To be added later as it will cause code duplication between api and UI functions. The actual logic would
+ * need to be moved elsewhere, then both UI and API controllers would be referencing that logic.
+ *
+ * Not sure of the best way to do this yet, so will only get to do it, once everything else is completed.
+ *
+ */
+
+
+
+//UI
+
+Route::get('/', [BookController::class, 'index']);
 
 Route::get('/dashboard', function () {
     return view('dashboard');
