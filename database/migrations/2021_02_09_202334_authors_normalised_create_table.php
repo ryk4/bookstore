@@ -21,7 +21,7 @@ class AuthorsNormalisedCreateTable extends Migration
         Schema::create('author_book', function (Blueprint $table) {
             //Composite key created of 2 foreign keys
             $table->foreignId('author_id')->constrained();
-            $table->foreignId('book_id')->constrained();
+            $table->foreignId('book_id')->constrained()->onDelete('Cascade');
 
             //$table->primary(['book_id', 'author_id']);
 

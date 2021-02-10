@@ -14,7 +14,8 @@ class Book extends Model
         'cover',
         'price',
         'discount',
-        'status'
+        'status',
+        'description'
     ];
 
     public function authors(){
@@ -31,6 +32,16 @@ class Book extends Model
 
     public function ratings(){
         return $this->hasMany(Rating::class);
+    }
+
+    public function getBookStatus(){
+        $status = [
+            0 => 'Active',
+            1 => 'Pending'
+            //can add more if needed
+        ];
+
+        return $status[$this->status];
     }
 
 }

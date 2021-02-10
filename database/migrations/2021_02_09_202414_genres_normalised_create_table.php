@@ -20,7 +20,7 @@ class GenresNormalisedCreateTable extends Migration
 
         Schema::create('book_genre', function (Blueprint $table) {
             //Composite key created of 2 foreign keys
-            $table->foreignId('book_id')->constrained();
+            $table->foreignId('book_id')->constrained()->onDelete('Cascade');
             $table->foreignId('genre_id')->constrained();
 
             //$table->primary(['book_id', 'genre_id']);

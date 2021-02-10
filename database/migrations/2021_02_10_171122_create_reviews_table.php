@@ -18,7 +18,7 @@ class CreateReviewsTable extends Migration
             $table->string('actual_review');
             $table->dateTime('created_at');//dont need updated_at
 
-            $table->foreignId('book_id')->constrained();
+            $table->foreignId('book_id')->constrained()->onDelete('Cascade');
             $table->foreignId('user_id')->constrained();
         });
     }

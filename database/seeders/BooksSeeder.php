@@ -18,6 +18,7 @@ class BooksSeeder extends Seeder
         DB::table('books')->insert([
             'id' => 1,
             'title' => 'Harry Potter and the Philosophers Stone',
+            'description' => 'HarLorem ipsum Lorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsum Lorem ipsum Lorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsum',
             'cover' => 'harry1',
             'price' => 12,
             'discount' => 0,

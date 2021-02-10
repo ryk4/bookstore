@@ -16,6 +16,7 @@ class CreateBookTable extends Migration
         Schema::create('books', function (Blueprint $table) {
             $table->id();
             $table->string('title');
+            $table->string('description')->default('Sorry, person who created this book did not provide description.');
             $table->string('cover')->nullable();//will contain url to image
             $table->double('price', 8, 2);
             $table->integer('discount');//0 - not approved, 1- approved

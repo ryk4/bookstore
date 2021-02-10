@@ -54,6 +54,18 @@
 
 }
 
+.bookImage {
+    height: 400px;
+    background-position: center;
+    background-size: cover;
+}
+
+.book {
+    max-height: 200px;
+    background-position: center;
+    background-size: cover;
+}
+
 
 /***
  *  Simple Pure CSS Star Rating Widget Bootstrap 4
@@ -65,9 +77,6 @@
 
 /* Styling h1 and links
 ––––––––––––––––––––––––––––––––– */
-
-
-
 
 .starrating > input {display: none;}  /* Remove radio buttons */
 
@@ -89,5 +98,9 @@
 
 .starrating > input:hover ~ label
 { color: #ffca08 ;  } /* Set yellow color when star hover */
+
+
+
+
 
 

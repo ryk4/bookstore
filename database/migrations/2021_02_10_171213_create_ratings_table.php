@@ -17,7 +17,7 @@ class CreateRatingsTable extends Migration
             $table->id();
             $table->integer('star_score')->default(5);//1 to 5
 
-            $table->foreignId('book_id')->constrained();
+            $table->foreignId('book_id')->constrained()->onDelete('Cascade');
             $table->foreignId('user_id')->constrained();
         });
     }

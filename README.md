@@ -28,7 +28,7 @@ features (login, register, forgot paswd, etc), list books with search option and
 - [ ] A search bar must have a cookie that tracks the previous search you had
 
 3. Extras
-- [ ] Menu bar
+- [x] Menu bar
 - [x] Login and registration button
 
 ## Login page
@@ -39,11 +39,11 @@ features (login, register, forgot paswd, etc), list books with search option and
 
 ## Registration page
 - [ ] Log in button
-- [ ] Fields: email, password, confirm password, date of birth
+- [x] Fields: email, password, confirm password, date of birth
 - [ ] Password with "show password" option
 
 ## Book page
-- [ ] Contains description
+- [x] Contains description
 - [ ] Users may leave reviews
 - [ ] Users may rate the book
 

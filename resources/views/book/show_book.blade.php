@@ -7,21 +7,23 @@
             <div class="row">
                 <div class="col-md-6">
                     <div class="align-content-center m-1 img-thumbnail">
-                        <img class="img-fluid" src="{{asset('/images/'.$book->cover.'.jpg')}}">
+                        <img class="bookImage" src="{{asset('/images/'.$book->cover.'.jpg')}}">
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="container">
-                        <div class="">
-                            <div class="starrating risingstar d-flex flex-row-reverse justify-content-end mb-0">
+                        <div class="row pt-3" >
+                            <div class="starrating risingstar d-flex flex-row-reverse justify-content-end " style="line-height: 0.9">
                                 <input type="radio" id="star5" name="rating" value="5" /><label for="star5" title="5 star"></label>
                                 <input type="radio" id="star4" name="rating" value="4" /><label for="star4" title="4 star"></label>
                                 <input type="radio" id="star3" name="rating" value="3" /><label for="star3" title="3 star"></label>
                                 <input type="radio" id="star2" name="rating" value="2" /><label for="star2" title="2 star"></label>
                                 <input type="radio" id="star1" name="rating" value="1" /><label for="star1" title="1 star"></label>
                             </div>
-                            <span>Average: 4.2 (10 votes)</span>
+                            <button class="btn btn-outline-success ml-2" style="line-height: 0.9" type="submit">Vote</button>
                         </div>
+                        <span>Average: 4.2 (10 votes)</span>
+
                         <div class="pb-3 mt-5">
                             <h3>Full price: €{{$book->price}}</h3>
                         </div>
@@ -40,11 +42,14 @@
                 </div>
             </div>
             <br>
+            <div class="container pb-2">
+                {{$book->description}}
+            </div>
             <div class="container">
                 <div class="row pb-2">
                     @foreach($book->reviews as $review)
                         <div class="col-md-4 pb-1">
-                            <div class="card card-white post">
+                            <div class="card card-white post p-2">
                                 <div class="post-heading">
 
                                     <div class="float-left meta">
