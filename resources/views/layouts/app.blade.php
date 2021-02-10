@@ -38,50 +38,50 @@
             <a class="navbar-brand" href="/">BookStore.lt</a>
         </div>
 
-        <div class="col-3 offset-3   text-white">
+        <div class="col-3 offset-2  text-white">
+            <div class="row">
             @guest
                 @if (Route::has('login'))
-                    <a class="text-white" href="{{ url('/login') }}">Login <span class="sr-only">(current)</span></a>|
+                    <a class="nav-link text-success" href="{{ url('/login') }}">Login <span class="sr-only">(current)</span></a>
                 @endif
                 @if (Route::has('register'))
-                    <a class="text-white" href="{{ route('register') }}">Register <span class="sr-only">(current)</span></a>
+                    <a class="nav-link text-success" href="{{ route('register') }}">Register <span class="sr-only">(current)</span></a>
                 @endif
             @else
-                <div class="nav-item dropdown">
 
-                    <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                        {{ Auth::user()->name }}
+                    <a href="{{ route('booksManageMenu') }}" class="nav-link text-success">
+                        Manage books
                     </a>
-
-
-
-                    <div class="dropdown-menu  aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="#">
-                            Admin area
-                        </a>
-                        <a class="dropdown-item" href="#">
-                            Settings
-                        </a>
-                        <a class="dropdown-item" href="{{ route('logout') }}"
-                           onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                            {{ __('Logout') }}
+                    <div class="nav-item dropdown">
+                        <a id="navbarDropdown" class="nav-link dropdown-toggle text-success" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                            {{ Auth::user()->name }}
                         </a>
 
-                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                            @csrf
-                        </form>
+                        <div class="dropdown-menu  aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="#">
+                                Admin area
+                            </a>
+                            <a class="dropdown-item" href="#">
+                                Settings
+                            </a>
+                            <a class="dropdown-item" href="{{ route('logout') }}"
+                               onclick="event.preventDefault();
+                                                         document.getElementById('logout-form').submit();">
+                                {{ __('Logout') }}
+                            </a>
+
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                @csrf
+                            </form>
+                        </div>
                     </div>
                 </div>
             @endguest
+</nav>
 
-
-        </div>
-    </nav>
-
-    <main class="py-4">
-        @yield('content')
-    </main>
+<main class="py-4">
+    @yield('content')
+</main>
 </div>
 </body>
 </html>

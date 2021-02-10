@@ -28,13 +28,31 @@ use App\Http\Controllers\BookController;
  */
 
 
-
 //UI
-
-Route::get('/', [BookController::class, 'index']);
 
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
 
 require __DIR__.'/auth.php';
+
+
+//Books
+Route::GET('/', [BookController::class, 'index'])->name('book.index');//will be default/starting page
+
+
+Route::GET('/book/manage', [BookController::class, 'manageMenu'])->name('booksManageMenu');
+Route::POST('/book', [BookController::class, 'create'])->name('book.store');
+Route::GET('/book/{id}', [BookController::class,'show'])->name('book.show');
+Route::PUT('/book/{id}', [BookController::class, 'update'])->name('book.edit');
+Route::PUT('/book/{id}/edit', [BookController::class, 'edit'])->name('book.update');
+Route::DELETE('/book/{id}', [BookController::class, 'destroy'])->name('book.destroy');
+
+
+
+//Users
+
+
+//Admin
+
+

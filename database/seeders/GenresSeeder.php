@@ -34,12 +34,12 @@ class GenresSeeder extends Seeder
             'name' => 'Romance',
         ]);
 
-        DB::table('books_genres')->insert([
+        DB::table('book_genre')->insert([
             'book_id' => 1,
             'genre_id' => 1
         ]);
 
-        DB::table('books_genres')->insert([
+        DB::table('book_genre')->insert([
             'book_id' => 1,
             'genre_id' => 2
         ]);

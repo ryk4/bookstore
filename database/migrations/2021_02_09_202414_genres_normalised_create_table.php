@@ -18,12 +18,12 @@ class GenresNormalisedCreateTable extends Migration
             $table->string('name');
         });
 
-        Schema::create('books_genres', function (Blueprint $table) {
+        Schema::create('book_genre', function (Blueprint $table) {
             //Composite key created of 2 foreign keys
             $table->foreignId('book_id')->constrained();
             $table->foreignId('genre_id')->constrained();
 
-            $table->primary(['book_id', 'genre_id']);
+            //$table->primary(['book_id', 'genre_id']);
 
         });
     }
@@ -35,7 +35,7 @@ class GenresNormalisedCreateTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('books_genres');
+        Schema::dropIfExists('book_genre');
         Schema::dropIfExists('genres');
     }
 }

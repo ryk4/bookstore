@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class AuthorsSeeder extends Seeder
 {
@@ -14,14 +15,21 @@ class AuthorsSeeder extends Seeder
     public function run()
     {
         DB::table('authors')->insert([
-            'firstname' => 'Joanne',
-            'lastname' => 'Rowling'
+            'fullname' => 'J.K Rowling'
         ]);
 
+        DB::table('authors')->insert([
+            'fullname' => 'Neil Murray'
+        ]);
 
-        DB::table('books_authors')->insert([
+        DB::table('author_book')->insert([
             'book_id' => 1,
             'author_id' => 1
+        ]);
+
+        DB::table('author_book')->insert([
+            'book_id' => 1,
+            'author_id' => 2
         ]);
 
     }
