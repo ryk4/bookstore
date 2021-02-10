@@ -14,9 +14,9 @@ features (login, register, forgot paswd, etc), list books with search option and
 
 ## Landing page
 1. List all books
-- [ ] Books displayed in 5x5 grid (Bootstrap)
+- [x] Books displayed in 5x5 grid (Bootstrap)
 - [ ] The book has a title with author, cover, and genre
-- [ ] The book can have multiple authors and genres
+- [x] The book can have multiple authors and genres
 - [ ] All book covers must have consistent dimensions
 - [ ] When there are more than 25 books on a page, there will be [next] and [previous] buttons
 - [ ] Books uploaded in the last week should have something to display that they are [NEW]
@@ -53,9 +53,9 @@ features (login, register, forgot paswd, etc), list books with search option and
 - [ ] Option to report a book (if there are discrepancies between some of the listed books)
 - [ ] Option to upload a book to the listing, then admin manually confirms if the book should be listed or not
 - [ ] Area to manage their books
-- [ ] Review the book (start + comments)
+- [ ] Review the book (star rating + comments)
 
-##Admin account
+## Admin account
 - [ ] Option to change password
 - [ ] Reply to user's report
 - [ ] Manage and update all the books
