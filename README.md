@@ -12,10 +12,10 @@ features (login, register, forgot paswd, etc), list books with search option and
 - PHP 8
 - Docker
 
-## Landing page
+## Landing page (will add "cards" styling.)
 1. List all books
 - [x] Books displayed in 5x5 grid (Bootstrap)
-- [ ] The book has a title with author, cover, and genre
+- [x] The book has a title with author, cover, and genre
 - [x] The book can have multiple authors and genres
 - [ ] All book covers must have consistent dimensions
 - [ ] When there are more than 25 books on a page, there will be [next] and [previous] buttons
