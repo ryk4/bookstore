@@ -42,7 +42,7 @@ Route::GET('/', [BookController::class, 'index'])->name('book.index');//will be 
 
 
 Route::GET('/book/manage', [BookController::class, 'manageMenu'])->name('booksManageMenu');
-Route::POST('/book', [BookController::class, 'create'])->name('book.store');
+Route::POST('/book', [BookController::class, 'store'])->name('book.store');
 Route::GET('/book/create', [BookController::class, 'create'])->name('book.create');
 Route::GET('/book/{id}', [BookController::class,'show'])->name('book.show');
 Route::PUT('/book/{id}', [BookController::class, 'update'])->name('book.edit');

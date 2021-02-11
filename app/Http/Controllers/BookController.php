@@ -48,4 +48,25 @@ class BookController extends Controller
     public function create(){
         return view('book/add_books');
     }
+
+    public function store(Request $request)
+    {
+        $book = new Book();
+        $book->title=$request->title;
+        $book->description=$request->description;
+        $book->cover=$request->cover;
+        $book->price=$request->price;
+        $book->discount=$request->discount;
+
+        $book->user_id=Auth::id(); //should be done automatically in Model ???
+        //cover
+        //authors
+        //genred
+
+        $book->save();
+
+
+
+        return redirect()->route('booksManageMenu');
+    }
 }
