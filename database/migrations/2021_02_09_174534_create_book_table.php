@@ -27,7 +27,6 @@ class CreateBookTable extends Migration
             $table->foreignId('user_id')->constrained();
             //only works if following proper naming conventions for schema tables/columns
 
-
         });
     }
 

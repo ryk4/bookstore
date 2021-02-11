@@ -15,7 +15,7 @@ class AuthorsNormalisedCreateTable extends Migration
     {
         Schema::create('authors', function (Blueprint $table) {
             $table->id();
-            $table->string('fullname');
+            $table->string('fullname')->unique();
         });
 
         Schema::create('author_book', function (Blueprint $table) {

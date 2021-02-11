@@ -10,7 +10,7 @@
                         <a href="/book/{{$book->id}}" class="">
                             <div class=" p-1">
                                 <div class="align-content-center m-1">
-                                    <img class="book img-thumbnail" src="{{asset('/images/'.$book->cover.'.jpg')}}">
+                                    <img class="book img-thumbnail" src="{{asset('/storage/'.$book->cover)}}">
                                 </div>
                                 <div class="d-flex justify-content-center">
                                     <h5>{{$book->title}}</h5>

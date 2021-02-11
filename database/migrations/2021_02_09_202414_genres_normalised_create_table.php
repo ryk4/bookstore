@@ -15,7 +15,7 @@ class GenresNormalisedCreateTable extends Migration
     {
         Schema::create('genres', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->string('name')->unique();
         });
 
         Schema::create('book_genre', function (Blueprint $table) {

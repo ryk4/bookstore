@@ -5,7 +5,7 @@
         <div class="col-8">
             <h2>Add Book</h2>
 
-            <form action="{{route('book.store')}}" method="POST">
+            <form action="{{route('book.store')}}" method="POST" enctype="multipart/form-data">
             @csrf
                 <div class="form-group">
                     <label for="title_field">Title</label>
