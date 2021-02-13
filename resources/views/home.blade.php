@@ -1,39 +1,46 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container">
-        <div class="row">
 
-            @if(isset($books))
-                @foreach($books as $book)
-                    <div class="col-lg-2dot4 individualBook m-2 border border-primary">
-                        <a href="/book/{{$book->id}}" class="">
-                            <div class=" p-1">
-                                <div class="align-content-center m-1">
-                                    <img class="book img-thumbnail" src="{{asset('/storage/'.$book->cover)}}">
-                                </div>
-                                <div class="d-flex justify-content-center">
-                                    <h5>{{$book->title}}</h5>
-                                </div>
-                                <div>
-                                    @foreach($book->authors as $author)
-                                        <div>{{$author->fullname}}</div>
-                                    @endforeach
-                                </div>
-                                <div class="d-flex justify-content-center mt-2">
-                                    <h3>€{{$book->price}}</h3>
-                                </div>
-                            </div>
-                        </a>
+    <div class="row flex-d justify-content-center">
+        @if(isset($books))
+            @foreach($books as $book)
+                <div class="card m-3" style="width: 19rem;">
+                    <span class="notify-badge">NEW</span>
+
+                    <img class="book img-thumbnail" src="{{asset('/storage/'.$book->cover)}}">
+
+                    <div class="card-body">
+                        <h5 class="card-price">€ {{$book->price}}</h5>
+                        <a href="/book/{{$book->id}}"><h5 class="card-title">{{$book->title}}</h5></a>
+                        <p class="card-text">{{$book->description}}</p>
                     </div>
-                @endforeach
-            @else
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">
+                            @foreach($book->genres as $genre)
+                                <a class="mr-2" href="#">{{$genre->name}}</a>
+                            @endforeach
+                        </li>
+                        <li class="list-group-item">
+                            @foreach($book->authors as $authors)
+                                <a class="mr-2" href="#">{{$authors->fullname}}</a>
+                            @endforeach
+                        </li>
+                    </ul>
 
-                <p>No books</p>
-            @endif
+                    <div class="container">
+                        <div class="row justify-content-md-center">
+                            <div class="col-md-auto">
+                                Average: 4.2 (10 votes)
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            @endforeach
+        @else
+
+            <p>No books</p>
+    @endif
 
 
-
-        </div>
-    </div>
 @endsection

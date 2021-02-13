@@ -44,4 +44,13 @@ class Book extends Model
         return $status[$this->status];
     }
 
+    public function getPriceWithDiscount(){
+        //check if book has discount
+       // $book_discount = $this
+
+        //if it does, return new price, old price and discount
+
+
+    }
+
 }

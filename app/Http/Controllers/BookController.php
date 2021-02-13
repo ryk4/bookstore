@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Author;
 use App\Models\Book;
 
+use App\Models\Genre;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -69,7 +70,7 @@ class BookController extends Controller
         //authors
         $authors_array = explode(',', $request->authors);
 
-        //cannot use saveMany(), as I cannot have duplicate authors
+        //cannot use saveMany(), as I cannot have duplicate authors.
         foreach($authors_array as $author)
         {
             $author_db = Author::firstOrCreate([
@@ -82,17 +83,17 @@ class BookController extends Controller
             ]);
         }
 
-        //$genres_array = explode(',', $request->genres);
+        //genres (Can this not be in a for-loop ???)
+        foreach($request->genres as $genre)
+        {
+            $genre_id = Genre::where('name',$genre)->first();
+            $book->genres()->attach($genre_id);
 
+        }
 
         //image upload
         if(request()->hasFile('cover'))
         {
-            error_log('===got file===');
-
-
-            // = request()->file('cover')->getClientOriginalName();
-           // request()->file('cover')->storeAs();
             $file = $request->file('cover');
             $name = '/images/books/' . uniqid() . '.' . $file->extension();
             $file->storePubliclyAs('public', $name);

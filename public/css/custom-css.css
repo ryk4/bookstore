@@ -99,7 +99,27 @@
 .starrating > input:hover ~ label
 { color: #ffca08 ;  } /* Set yellow color when star hover */
 
+.dropdown-toggle{
+    height: 40px;
+    width: 400px !important;
+}
 
+.notify-badge{
+    position: absolute;
+    margin-top: -40px;
+    margin-right: -40px;
+    background: red;
+    height:2rem;
+    top:2rem;
+    right:1.5rem;
+    width:3rem;
+    text-align: center;
+    line-height: 2rem;;
+    font-size: 1rem;
+    border-radius: 50%;
+    color:white;
+
+}
 
 
 
