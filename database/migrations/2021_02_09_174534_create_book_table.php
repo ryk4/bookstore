@@ -19,8 +19,8 @@ class CreateBookTable extends Migration
             $table->string('description')->default('Sorry, person who created this book did not provide description.');
             $table->string('cover')->nullable();//will contain url to image
             $table->double('price', 8, 2);
-            $table->integer('discount');//0 - not approved, 1- approved
-            $table->integer('status')->default(1);//0 - active, 1- pending
+            $table->integer('discount');
+            $table->integer('status')->default(0);//0 - pending, 1- success
             $table->timestamps();
 
             //FKS

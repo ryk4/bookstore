@@ -19,7 +19,7 @@ class DatabaseSeeder extends Seeder
             GenresSeeder::class,
             AuthorsSeeder::class,
             RatingsSeeder::class,
-            ReviewsSeeder::class
+            CommentsSeeder::class
         ]);
     }
 }

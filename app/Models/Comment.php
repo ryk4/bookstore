@@ -6,12 +6,14 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Review extends Model
+class Comment extends Model
 {
     use HasFactory;
 
-    protected $fillable = [
+    public $timestamps = false;
 
+    protected $fillable = [
+        'actual_comment'
     ];
 
     public function user()
@@ -21,7 +23,17 @@ class Review extends Model
 
     public function get_days_ago_readable()
     {
-        return $this->created_at->diffInDays(Carbon::now());
+        $readable_days_ago = Carbon::parse($this->created_at)->diffInDays(Carbon::now());
+
+        if($readable_days_ago == 0)
+        {
+            return 'Today';
+        }
+        else{
+            return $readable_days_ago.' day(s) ago';
+        }
+
+
     }
 
 }

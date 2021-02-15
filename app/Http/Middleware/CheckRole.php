@@ -14,8 +14,17 @@ class CheckRole
      * @param  \Closure  $next
      * @return mixed
      */
-    public function handle(Request $request, Closure $next)
+    public function handle(Request $request, Closure $next,string $role)
     {
+        $roles = [
+            'admin'  => 0,
+            'normal' => 1
+        ];
+
+        if(auth()->user()->user_level > $roles[$role]){
+            abort(403);
+        }
+
         return $next($request);
     }
 }

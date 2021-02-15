@@ -3,9 +3,13 @@
 namespace App\Http\Controllers\Book;
 
 use App\Http\Controllers\Controller;
+use App\Models\Book;
+use App\Models\Comment;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
-class ReviewController extends Controller
+class CommentController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -33,9 +37,19 @@ class ReviewController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request,Book $book)
     {
-        dd('inserting comment mate');
+
+        $comment = new Comment();
+        $comment->actual_comment = $request->comment;
+        $comment->book_id= $book->id;
+        $comment->user_id=Auth::id();
+        $comment->created_at=Carbon::now();
+
+        $comment->save();
+
+        return redirect()->route('book.show',$book->id);
+
     }
 
     /**

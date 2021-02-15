@@ -13,11 +13,11 @@
         <div class="row">
             <!-- Start XP Col -->
             <div class="col-md-12 col-lg-12 col-xl-12">
-                <div class="text-center mt-3 mb-5">
-                    <h4>Approve books</h4>
-                </div>
 
-                @isset($books)
+                @if($books->count() > 0)
+                    <div class="text-center mt-3 mb-5">
+                        <h4>Approve books</h4>
+                    </div>
                     <table class="table table-bordered">
                         <thead>
                         <tr>
@@ -42,13 +42,13 @@
                                 <td>Rytis Klimavicius</td>
                                 <td>
                                     <div class="row">
-                                        <form action="{{route('approveBook',$book)}}" method="POST">
+                                        <form action="{{route('admin.book.approve',$book)}}" method="POST">
                                             @method('PUT')
                                             @csrf
                                             <input name="validate" value="1" hidden>
                                             <button type="submit" class="btn btn-outline-success mx-2">Approve<i class="mdi mdi-plus ml-2"></i></button>
                                         </form>
-                                        <form action="{{route('approveBook',$book)}}" method="POST">
+                                        <form action="{{route('admin.book.approve',$book)}}" method="POST">
                                             @method('PUT')
                                             @csrf
                                             <input name="validate" value="2" hidden>
@@ -64,7 +64,11 @@
                         </tbody>
 
                     </table>
-                @endisset
+                @else
+                    <div class="text-center mt-3 mb-5">
+                        <h4>No books to approve</h4>
+                    </div>
+                @endif
             </div>
             <!-- End XP Col -->
         </div>

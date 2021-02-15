@@ -1948,10 +1948,10 @@ Switchery.prototype.disable = function() {
 });
 
 if (typeof exports == "object") {
-  module.exports = require("switchery");
+  module.exports = require("public/assets/plugins/switchery/switchery");
 } else if (typeof define == "function" && define.amd) {
-  define("Switchery", [], function(){ return require("switchery"); });
+  define("Switchery", [], function(){ return require("public/assets/plugins/switchery/switchery"); });
 } else {
-  (this || window)["Switchery"] = require("switchery");
+  (this || window)["Switchery"] = require("public/assets/plugins/switchery/switchery");
 }
 })();

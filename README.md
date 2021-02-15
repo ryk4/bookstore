@@ -17,10 +17,10 @@ features (login, register, forgot paswd, etc), list books with search option and
 - [x] Books displayed in 5x5 grid (Bootstrap)
 - [x] The book has a title with author, cover, and genre
 - [x] The book can have multiple authors and genres
-- [ ] All book covers must have consistent dimensions
+- [x] All book covers must have consistent dimensions
 - [ ] When there are more than 25 books on a page, there will be [next] and [previous] buttons
-- [ ] Books uploaded in the last week should have something to display that they are [NEW]
-- [ ] The book may have a discount (by percentage), and I also would like to see that in the listing [10%]
+- [x] Books uploaded in the last week should have something to display that they are [NEW]
+- [x] The book may have a discount (by percentage), and I also would like to see that in the listing [10%]
 
 2. Search bar
 - [ ] When searching for a book it should look for title and author
@@ -35,27 +35,27 @@ features (login, register, forgot paswd, etc), list books with search option and
 - [x] Login page containing email and password
 - [x] "Remember me" option
 - [x] "Forgot password" option
-- [ ] Register button
+- [x] Register button
 
 ## Registration page
-- [ ] Log in button
+- [x] Log in button
 - [x] Fields: email, password, confirm password, date of birth
 - [ ] Password with "show password" option
 
 ## Book page
 - [x] Contains description
-- [ ] Users may leave reviews
-- [ ] Users may rate the book
+- [x] Users may leave reviews
+- [x] Users may rate the book
 
 ## User account
 - [ ] Change password feature
 - [ ] Change email
 - [ ] Option to report a book (if there are discrepancies between some of the listed books)
-- [ ] Option to upload a book to the listing, then admin manually confirms if the book should be listed or not
-- [ ] Area to manage their books
-- [ ] Review the book (star rating + comments)
+- [x] Option to upload a book to the listing, then admin manually confirms if the book should be listed or not
+- [x] Area to manage their books
+- [x] Review the book (star rating + comments)
 
 ## Admin account
 - [ ] Option to change password
-- [ ] Reply to user's report
+- [x] Reply to user's report
 - [ ] Manage and update all the books

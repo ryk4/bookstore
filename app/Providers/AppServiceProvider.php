@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use Illuminate\View\View;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -23,6 +24,11 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        /*View()->composer('layouts.leftbar', function ($view) {
+
+            $count_not_approved = 69;
+
+            $view->with('count_not_approved', $count_not_approved);
+        } );*/
     }
 }

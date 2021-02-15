@@ -15,5 +15,9 @@ class Author extends Model
 
     public $timestamps = false;
 
+    public function author_readable()
+    {
+        return $this->fullname;
+    }
 
 }

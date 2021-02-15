@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BookController;
+use App\Http\Controllers\Book\CommentController;
+use App\Http\Controllers\Book\RatingController;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,32 +30,39 @@ use App\Http\Controllers\BookController;
  */
 
 
-//UI
-
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth'])->name('dashboard');
 
 require __DIR__.'/auth.php';
 
 
-//Books
 Route::GET('/', [BookController::class, 'index'])->name('book.index');//will be default/starting page
 
-
+//Book
 Route::GET('/book/manage', [BookController::class, 'manageMenu'])->name('booksManageMenu');
 Route::POST('/book', [BookController::class, 'store'])->name('book.store');
-Route::GET('/book/create', [BookController::class, 'create'])->name('book.create');
+Route::GET('/book/create', [BookController::class, 'create'])->name('book.create')->middleware('auth');
 Route::GET('/book/{id}', [BookController::class,'show'])->name('book.show');
-Route::PUT('/book/{id}', [BookController::class, 'update'])->name('book.edit');
-Route::GET('/book/{id}/edit', [BookController::class, 'edit'])->name('book.update');
-Route::DELETE('/book/{id}', [BookController::class, 'destroy'])->name('book.destroy');
+Route::GET('/book/{id}/edit', [BookController::class, 'edit'])->name('book.edit')->middleware('auth');;
+Route::PUT('/book/{book}', [BookController::class, 'update'])->name('book.update')->middleware('auth');
+Route::DELETE('/book/{id}', [BookController::class, 'destroy'])->name('book.destroy')->middleware('auth');
+
+//Book.Comment
+Route::POST('/book/{book}/comment', [CommentController::class, 'store'])->name('book.comment.store');
+
+//Book.rating
+Route::POST('/book/{book}/rating', [RatingController::class, 'store'])->name('book.rating.store');
 
 
-
-//Users
+//Users (including admins)
 
 
 //Admin
+
+//Admin
+Route::GET('/admin/books', [\App\Http\Controllers\Admin\AdminController::class, 'index'])->name('admin.book.index')->middleware('checkRole:admin');
+Route::PUT('/admin/books/{book}/approve', [\App\Http\Controllers\Admin\AdminController::class, 'approve'])->name('admin.book.approve')->middleware('checkRole:admin');
+
+
+
+
 
 

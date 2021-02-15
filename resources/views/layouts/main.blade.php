@@ -11,36 +11,39 @@
         <title> @yield('title') </title>
         <!-- Fevicon -->
         <link rel="shortcut icon" href="{{ asset('assets/images/favicon.ico') }}">
-        <!-- Start CSS -->   
+        <!-- Start CSS -->
         @yield('style')
         <link href="{{ asset('assets/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css">
         <link href="{{ asset('assets/css/icons.css') }}" rel="stylesheet" type="text/css">
         <link href="{{ asset('assets/css/style.css') }}" rel="stylesheet" type="text/css">
+
+        <link href="{{ asset('css/custom-css.css') }}" rel="stylesheet" type="text/css">
+
         <!-- End CSS -->
     </head>
     <body class="xp-vertical">
         <!-- Start XP Container -->
-        <div id="xp-container">     
+        <div id="xp-container">
             <!-- Start XP Leftbar -->
             @include('layouts.leftbar')
             <!-- End XP Leftbar -->
             <!-- Start XP Rightbar -->
-            @include('layouts.rightbar')          
+            @include('layouts.rightbar')
             @yield('content')
-            <!-- End XP Rightbar -->  
+            <!-- End XP Rightbar -->
         </div>
         <!-- End XP Container -->
-        <!-- Start JS -->        
+        <!-- Start JS -->
         <script src="{{ asset('assets/js/jquery.min.js') }}"></script>
         <script src="{{ asset('assets/js/popper.min.js') }}"></script>
         <script src="{{ asset('assets/js/bootstrap.min.js') }}"></script>
         <script src="{{ asset('assets/js/modernizr.min.js') }}"></script>
         <script src="{{ asset('assets/js/detect.js') }}"></script>
         <script src="{{ asset('assets/js/jquery.slimscroll.js') }}"></script>
-        <script src="{{ asset('assets/js/sidebar-menu.js') }}"></script> 
+        <script src="{{ asset('assets/js/sidebar-menu.js') }}"></script>
         @yield('script')
         <!-- Main JS -->
         <script src="{{ asset('assets/js/main.js') }}"></script>
         <!-- End JS -->
     </body>
-</html>    
+</html>

@@ -28,7 +28,6 @@
             @include('layouts.leftbar')
             <!-- End XP Leftbar -->
             <!-- Start XP Rightbar -->
-            @include('layouts.rightbar')
             @yield('content')
             <!-- End XP Rightbar -->
         </div>

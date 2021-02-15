@@ -21,6 +21,7 @@ class UsersSeeder extends Seeder
             'name' => 'rytis klimavicius',
             'email' => 'rytiskli@gmail.com',
             'dob' => '2021-02-10',
+            'user_level' =>  0,
             'password' => Hash::make('Test123'),
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now()

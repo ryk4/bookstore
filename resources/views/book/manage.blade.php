@@ -45,8 +45,8 @@
                                         <td>{{$book->title}}</td>
                                         <td>€ {{$book->price}}</td>
                                         <td>{{$book->created_at}}</td>
-                                        <td @if($book->status == 1)
-                                            class="badge-warning">
+                                        <td @if($book->status == 0)
+                                                class="badge-warning">
                                             @else
                                                 class="badge-success">
                                             @endif
@@ -54,12 +54,7 @@
                                         <td>Rytis Klimavicius</td>
                                         <td>
                                             <div class="row">
-                                                <form action="{{route('book.edit',$book->id)}}" method="POST">
-                                                    @method('DELETE')
-                                                    @csrf
-                                                    <button type="button" class="btn btn-outline-warning mx-2">Edit<i class="mdi mdi-upload ml-2"></i></button>
-                                                </form>
-
+                                                <a class="btn btn-outline-warning mx-2" href="{{route('book.edit',$book->id)}}">Edit</a>
 
                                                 <button type="button" class="btn btn-outline-danger" data-toggle="modal" data-target="#exampleStandardModal">Delete
                                                     <i class="mdi mdi-delete-sweep ml-2"></i>

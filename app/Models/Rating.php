@@ -8,4 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class Rating extends Model
 {
     use HasFactory;
+
+    protected $fillable =['star_score'];
+
+    public $timestamps = false;
+
+
 }
