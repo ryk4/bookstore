@@ -21,6 +21,8 @@ class Book extends Model
         'description'
     ];
 
+    protected $perPage = 3;
+
     public function authors(){
         return $this->belongsToMany(Author::class);
     }
@@ -35,6 +37,10 @@ class Book extends Model
 
     public function ratings(){
         return $this->hasMany(Rating::class);
+    }
+
+    public function user(){
+        return $this->belongsTo(User::class);
     }
 
     public function getBookStatus(){

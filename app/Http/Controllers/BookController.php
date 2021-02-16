@@ -16,7 +16,7 @@ use Illuminate\Support\Str;
 class BookController extends Controller
 {
     public function index(){
-        $books = Book::where('status',1)->get();
+        $books = Book::with('authors','genres')->where('status',1)->simplePaginate();
 
         return view('home', [
             'books' => $books
@@ -35,7 +35,7 @@ class BookController extends Controller
 
     public function show($id){
 
-        $book = Book::findOrFail($id);
+        $book = Book::with('comments.user')->findOrFail($id);
 
         return view('book.show',[
             'book' => $book

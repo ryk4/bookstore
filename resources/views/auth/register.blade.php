@@ -18,7 +18,8 @@
                     <div class="card">
                         <div class="card-body">
                             <h3 class="text-center mt-0 m-b-15">
-                                <a href="/" class="xp-web-logo"><img src="assets/images/logo.png" height="40" alt="logo"></a>
+                                <a href="/" class="xp-web-logo"><img src="assets/images/logo.png" height="40"
+                                                                     alt="logo"></a>
                             </h3>
                             <div class="">
                                 <form method="POST" action="{{ route('register') }}">
@@ -26,11 +27,14 @@
 
                                     <div class="text-center">
                                         <h4 class="text-black">Sign Up !</h4>
-                                        <p class="text-muted">Already have an account? <a href="{{ route('login') }}">Sign in</a> Here</p>
+                                        <p class="text-muted">Already have an account? <a href="{{ route('login') }}">Sign
+                                                in</a> Here</p>
                                     </div>
 
                                     <div class="form-group">
-                                        <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}"
+                                        <input id="name" type="text"
+                                               class="form-control @error('name') is-invalid @enderror" name="name"
+                                               value="{{ old('name') }}"
                                                required autocomplete="name" autofocus placeholder="Full name">
 
                                         @error('name')
@@ -40,7 +44,9 @@
                                         @enderror
                                     </div>
                                     <div class="form-group">
-                                        <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}"
+                                        <input id="email" type="email"
+                                               class="form-control @error('email') is-invalid @enderror" name="email"
+                                               value="{{ old('email') }}"
                                                required autocomplete="email" placeholder="Email address">
 
                                         @error('email')
@@ -50,7 +56,9 @@
                                         @enderror
                                     </div>
                                     <div class="form-group">
-                                        <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password"
+                                        <input id="password" type="password"
+                                               class="form-control @error('password') is-invalid @enderror"
+                                               name="password"
                                                required autocomplete="new-password" placeholder="Password">
 
                                         @error('password')
@@ -64,14 +72,25 @@
                                     <div class="form-group">
 
                                         <div class="">
-                                            <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required
+                                            <input id="password-confirm" type="password" class="form-control"
+                                                   name="password_confirmation" required
                                                    autocomplete="new-password" placeholder="Confirm password">
 
                                         </div>
                                     </div>
 
+                                    <div class="form-group">
+                                        <div class="custom-control custom-checkbox">
+                                            <input type="checkbox" class="custom-control-input" id="show_passwords"
+                                                   onclick="myFunction()">
+                                            <label class="custom-control-label" for="show_passwords">Show
+                                                passwords</label>
+                                        </div>
+                                    </div>
+
                                     <div class="form-group row">
-                                        <label for="password-confirm" class="col-md-3 col-form-label text-md-right">{{ __('Date of Birth') }}</label>
+                                        <label for="password-confirm"
+                                               class="col-md-3 col-form-label text-md-right">{{ __('Date of Birth') }}</label>
 
                                         <div class="col-md-9">
                                             <input id="dob" type="date" class="form-control @error('dob')
@@ -79,19 +98,31 @@
 
                                             @error('dob')
                                             <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
+                                                <strong>{{ $message }}</strong>
+                                            </span>
                                             @enderror
                                         </div>
                                     </div>
 
                                     <div class="form-group">
                                         <div class="custom-control custom-checkbox">
-                                            <input type="checkbox" class="custom-control-input" id="terms">
-                                            <label class="custom-control-label" for="terms">I Agree to Terms & Conditions</label>
+                                            <input type="checkbox" class="custom-control-input" id="terms_field" name="terms" required>
+
+                                            <label class="custom-control-label" for="terms_field">I Agree to Terms &
+                                                Conditions</label>
+
+
+                                            @error('terms')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                            @enderror
                                         </div>
                                     </div>
-                                    <button type="submit" class="btn btn-primary btn-rounded btn-lg btn-block">Create an Account</button>
+                                    <button type="submit" class="btn btn-primary btn-rounded btn-lg btn-block">Create an
+                                        Account
+                                    </button>
+
                                 </form>
                             </div>
                         </div>
@@ -106,5 +137,16 @@
     <!-- End Container -->
 </div>
 <!-- End XP Container -->
-@section('script')
-@endsection
+<script>
+    function myFunction() {
+        var x = document.getElementById("password");
+        var x2 = document.getElementById("password-confirm");
+        if (x.type === "password") {
+            x.type = "text";
+            x2.type = "text";
+        } else {
+            x.type = "password";
+            x2.type = "password";
+        }
+    }
+</script>

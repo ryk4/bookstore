@@ -18,7 +18,7 @@ features (login, register, forgot paswd, etc), list books with search option and
 - [x] The book has a title with author, cover, and genre
 - [x] The book can have multiple authors and genres
 - [x] All book covers must have consistent dimensions
-- [ ] When there are more than 25 books on a page, there will be [next] and [previous] buttons
+- [x] When there are more than 25 books on a page, there will be [next] and [previous] buttons
 - [x] Books uploaded in the last week should have something to display that they are [NEW]
 - [x] The book may have a discount (by percentage), and I also would like to see that in the listing [10%]
 
@@ -40,7 +40,7 @@ features (login, register, forgot paswd, etc), list books with search option and
 ## Registration page
 - [x] Log in button
 - [x] Fields: email, password, confirm password, date of birth
-- [ ] Password with "show password" option
+- [x] Password with "show password" option
 
 ## Book page
 - [x] Contains description
@@ -48,14 +48,14 @@ features (login, register, forgot paswd, etc), list books with search option and
 - [x] Users may rate the book
 
 ## User account
-- [ ] Change password feature
-- [ ] Change email
-- [ ] Option to report a book (if there are discrepancies between some of the listed books)
+- [x] Change password feature
+- [x] Change email feature
+- [ ] Option to report a book (for reasons like incorrect description, NSFW content, etc) 
 - [x] Option to upload a book to the listing, then admin manually confirms if the book should be listed or not
 - [x] Area to manage their books
 - [x] Review the book (star rating + comments)
 
 ## Admin account
-- [ ] Option to change password
+- [x] Option to change password
 - [x] Reply to user's report
 - [ ] Manage and update all the books

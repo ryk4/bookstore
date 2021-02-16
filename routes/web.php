@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\Book\CommentController;
 use App\Http\Controllers\Book\RatingController;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -37,7 +38,7 @@ require __DIR__.'/auth.php';
 Route::GET('/', [BookController::class, 'index'])->name('book.index');//will be default/starting page
 
 //Book
-Route::GET('/book/manage', [BookController::class, 'manageMenu'])->name('booksManageMenu');
+Route::GET('/book/manage', [BookController::class, 'manageMenu'])->name('booksManageMenu')->middleware('auth');;
 Route::POST('/book', [BookController::class, 'store'])->name('book.store');
 Route::GET('/book/create', [BookController::class, 'create'])->name('book.create')->middleware('auth');
 Route::GET('/book/{id}', [BookController::class,'show'])->name('book.show');
@@ -53,6 +54,8 @@ Route::POST('/book/{book}/rating', [RatingController::class, 'store'])->name('bo
 
 
 //Users (including admins)
+Route::GET('/user/settings', [UserController::class, 'index'])->name('user.index')->middleware('auth');;
+Route::PUT('/user/settings/{user}', [UserController::class, 'update'])->name('user.update')->middleware('auth');;
 
 
 //Admin

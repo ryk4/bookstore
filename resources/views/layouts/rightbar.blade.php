@@ -45,9 +45,8 @@
                                 <div class="dropdown xp-userprofile">
                                     <a class="dropdown-toggle user-profile-img" href="#" role="button" id="xp-userprofile" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="/assets/images/topbar/user.jpg" alt="user-profile" class="rounded-circle img-fluid"><span class="xp-user-live"></span></a>
                                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="xp-userprofile">
-                                        <a class="dropdown-item" href="#">Welcome, {{Auth::user()->name}}</a>
-                                        <a class="dropdown-item" href="#"><i class="mdi mdi-account mr-2"></i> Profile</a>
-                                        <a class="dropdown-item" href="#"><i class="mdi mdi-settings mr-2"></i> Settings</a>
+                                        <div class="dropdown-item" >Welcome, {{Auth::user()->name}}</div>
+                                        <a class="dropdown-item" href="{{ route('user.index') }}"><i class="mdi mdi-settings mr-2"></i> Settings</a>
 
                                         <a class="dropdown-item" href="{{ route('logout') }}"
                                            onclick="event.preventDefault();

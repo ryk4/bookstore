@@ -42,11 +42,7 @@
                                 @endif
                             </a>
                         </li>
-                        <li>
-                            <a href="#">
-                                <i class="fa fa-user"></i><span>Manage Users</span>
-                            </a>
-                        </li>
+
                     @endif
 
                 @endguest
