@@ -7,16 +7,41 @@ use App\Models\Author;
 use App\Models\Book;
 
 use App\Models\Genre;
-use Faker\Provider\Image;
+use Illuminate\Support\Facades\Cookie;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Str;
 
 class BookController extends Controller
 {
+    public function search(Request $request)
+    {
+
+        $search = $request->input('search_criteria');
+
+        $searched_books = Book::with('authors','genres')
+            ->where('status',1)
+            ->whereHas('authors', function($query) use ($search){
+                $query->where('fullname','LIKE',"%{$search}%");
+            })
+            ->orWhere('title','LIKE',"%{$search}%")
+            ->simplePaginate();
+
+        $cookie = Cookie::make('search_cookie', $search);
+
+        return Response::view('home', [
+            'books' => $searched_books
+        ])->withCookie($cookie);
+    }
+
     public function index(){
-        $books = Book::with('authors','genres')->where('status',1)->simplePaginate();
+
+
+        $books = Book::with('authors','genres')
+            ->where('status',1)
+            ->simplePaginate();
 
         return view('home', [
             'books' => $books
@@ -164,4 +189,5 @@ class BookController extends Controller
 
         return redirect()->route('booksManageMenu');
     }
+
 }

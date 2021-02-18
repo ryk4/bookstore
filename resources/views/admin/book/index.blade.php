@@ -37,7 +37,7 @@
                                 <td>€ {{$book->price}}</td>
                                 <td>{{$book->created_at}}</td>
                                 <td>
-                                    <a href="#">Book Url</a>
+                                    <a href="{{route('book.show',$book)}}">Preview book</a>
                                 </td>
                                 <td>Rytis Klimavicius</td>
                                 <td>

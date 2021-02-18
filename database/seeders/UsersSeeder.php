@@ -18,10 +18,22 @@ class UsersSeeder extends Seeder
     public function run()
     {
         DB::table('users')->insert([
-            'name' => 'rytis klimavicius',
-            'email' => 'rytiskli@gmail.com',
-            'dob' => '2021-02-10',
+            'id' => 1,
+            'name' => 'Admin test',
+            'email' => 'admin@admin.com',
+            'dob' => '2000-02-10',
             'user_level' =>  0,
+            'password' => Hash::make('Test123'),
+            'created_at' => Carbon::now(),
+            'updated_at' => Carbon::now()
+        ]);
+
+        DB::table('users')->insert([
+            'id' => 2,
+            'name' => 'Normal user test',
+            'email' => 'mormal@normal.com',
+            'dob' => '2001-02-10',
+            'user_level' =>  1,
             'password' => Hash::make('Test123'),
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now()

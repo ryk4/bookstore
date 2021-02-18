@@ -19,18 +19,39 @@ class AuthorsSeeder extends Seeder
         ]);
 
         DB::table('authors')->insert([
-            'fullname' => 'Neil Murray'
+            'fullname' => 'Dzonas Valanciunas'
         ]);
 
-        DB::table('author_book')->insert([
-            'book_id' => 1,
-            'author_id' => 1
+        DB::table('authors')->insert([
+            'fullname' => 'Lazauskiene'
         ]);
 
-        DB::table('author_book')->insert([
-            'book_id' => 1,
-            'author_id' => 2
+        DB::table('authors')->insert([
+            'fullname' => 'Mark Hanson'
         ]);
+
+        DB::table('authors')->insert([
+            'fullname' => 'Baudejas'
+        ]);
+
+        DB::table('authors')->insert([
+            'fullname' => 'Oleg Surajev'
+        ]);
+
+        for($i=1;$i<30;$i++){
+            $random_author= rand(2,6);
+
+            DB::table('author_book')->insert([
+                'book_id' => $i,
+                'author_id' => $random_author
+            ]);
+
+            DB::table('author_book')->insert([
+                'book_id' => $i,
+                'author_id' => $random_author-1
+            ]);
+
+        }
 
     }
 }

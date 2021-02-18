@@ -6,7 +6,6 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
 
 class Book extends Model
 {
@@ -21,7 +20,7 @@ class Book extends Model
         'description'
     ];
 
-    protected $perPage = 3;
+    protected $perPage = 25;
 
     public function authors(){
         return $this->belongsToMany(Author::class);
@@ -67,7 +66,7 @@ class Book extends Model
 
         $price_with_discount = $this->price * (1-($this->discount / 100));
 
-        return $price_with_discount;
+        return round($price_with_discount,2);
     }
 
     public function if_rating_left_by_user(){

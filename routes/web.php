@@ -35,16 +35,19 @@ use App\Http\Controllers\UserController;
 require __DIR__.'/auth.php';
 
 
-Route::GET('/', [BookController::class, 'index'])->name('book.index');//will be default/starting page
 
 //Book
+Route::GET('/', [BookController::class, 'index'])->name('book.index');//will be default/starting page
 Route::GET('/book/manage', [BookController::class, 'manageMenu'])->name('booksManageMenu')->middleware('auth');;
 Route::POST('/book', [BookController::class, 'store'])->name('book.store');
-Route::GET('/book/create', [BookController::class, 'create'])->name('book.create')->middleware('auth');
+Route::GET('/book/create', [BookController::class, 'create'])->name('book.create')->middleware('checkRole:normal');;
 Route::GET('/book/{id}', [BookController::class,'show'])->name('book.show');
 Route::GET('/book/{id}/edit', [BookController::class, 'edit'])->name('book.edit')->middleware('auth');;
 Route::PUT('/book/{book}', [BookController::class, 'update'])->name('book.update')->middleware('auth');
 Route::DELETE('/book/{id}', [BookController::class, 'destroy'])->name('book.destroy')->middleware('auth');
+
+Route::POST('/search', [BookController::class, 'search'])->name('book.search');
+
 
 //Book.Comment
 Route::POST('/book/{book}/comment', [CommentController::class, 'store'])->name('book.comment.store');
@@ -59,11 +62,8 @@ Route::PUT('/user/settings/{user}', [UserController::class, 'update'])->name('us
 
 
 //Admin
-
-//Admin
 Route::GET('/admin/books', [\App\Http\Controllers\Admin\AdminController::class, 'index'])->name('admin.book.index')->middleware('checkRole:admin');
 Route::PUT('/admin/books/{book}/approve', [\App\Http\Controllers\Admin\AdminController::class, 'approve'])->name('admin.book.approve')->middleware('checkRole:admin');
-
 
 
 

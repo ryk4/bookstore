@@ -34,14 +34,24 @@ class GenresSeeder extends Seeder
             'name' => 'Romance',
         ]);
 
-        DB::table('book_genre')->insert([
-            'book_id' => 1,
-            'genre_id' => 1
+        DB::table('genres')->insert([
+            'name' => 'History',
         ]);
 
-        DB::table('book_genre')->insert([
-            'book_id' => 1,
-            'genre_id' => 2
-        ]);
+
+        for($i=1;$i<30;$i++){
+            $random_author= rand(2,6);
+
+            DB::table('book_genre')->insert([
+                'book_id' => $i,
+                'genre_id' => $random_author
+            ]);
+
+            DB::table('book_genre')->insert([
+                'book_id' => $i,
+                'genre_id' => $random_author-1
+            ]);
+
+        }
     }
 }

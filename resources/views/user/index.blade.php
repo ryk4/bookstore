@@ -33,6 +33,12 @@
                             @method('PUT')
                             @csrf
                             <div class="form-group">
+                                <label for="current_password_field">Current Password (for authorization)</label>
+                                <input class="form-control" type="password" id="current_password_field" name="current_password" placeholder="Current password"
+                                       autocomplete="new-password" required>
+                            </div>
+                            <br>
+                            <div class="form-group">
                                 <label for="name_field">Fullname</label>
                                 <input class="form-control" id="name_field" name="name" placeholder="Enter fullname"
                                        value="{{$user->name}}">
@@ -46,15 +52,15 @@
 
                             <div class="row">
                                 <div class="form-group col-md-6">
-                                    <label for="password_field">Password</label>
-                                    <input class="form-control" type="password" id="password_field" name="password" placeholder="Enter password"
+                                    <label for="password_field">New Password</label>
+                                    <input class="form-control" type="password" id="password_field" name="password" placeholder="Enter password or leave empty"
                                            autocomplete="new-password">
                                 </div>
                                 <div class="form-group col-md-6">
-                                    <label for="password-confirm">Confirm Password</label>
+                                    <label for="password-confirm">Confirm new Password</label>
                                     <input id="password-confirm" type="password" class="form-control"
                                                name="password_confirmation"
-                                               autocomplete="new-password" placeholder="Confirm password">
+                                               autocomplete="new-password" placeholder="Confirm password or leave empty">
                                 </div>
                             </div>
 

@@ -21,6 +21,10 @@ class CheckRole
             'normal' => 1
         ];
 
+        if(auth()->id(0) == null){//not logged in
+            abort(403);
+        }
+
         if(auth()->user()->user_level > $roles[$role]){
             abort(403);
         }
