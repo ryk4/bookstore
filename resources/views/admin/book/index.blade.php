@@ -18,6 +18,23 @@
                     <div class="text-center mt-3 mb-5">
                         <h4>Approve books</h4>
                     </div>
+                @else
+                    <div class="text-center mt-3 mb-5">
+                        <h4>No books to approve</h4>
+                    </div>
+                @endif
+
+                <div class="text-center col-6 offset-3 mt-3 mb-5">
+                    @if (session('status'))
+                        <div class="alert alert-success">
+                            {{ session('status') }}
+                        </div>
+                    @endif
+                </div>
+
+                @if($books->count() > 0)
+
+
                     <table class="table table-bordered">
                         <thead>
                         <tr>
@@ -46,13 +63,15 @@
                                             @method('PUT')
                                             @csrf
                                             <input name="validate" value="1" hidden>
-                                            <button type="submit" class="btn btn-outline-success mx-2">Approve<i class="mdi mdi-plus ml-2"></i></button>
+                                            <button type="submit" class="btn btn-outline-success mx-2">Approve<i
+                                                    class="mdi mdi-plus ml-2"></i></button>
                                         </form>
                                         <form action="{{route('admin.book.approve',$book)}}" method="POST">
                                             @method('PUT')
                                             @csrf
                                             <input name="validate" value="2" hidden>
-                                            <button type="submit" class="btn btn-outline-danger mx-2">Remove<i class="mdi mdi-delete-sweep ml-2"></i></button>
+                                            <button type="submit" class="btn btn-outline-danger mx-2">Remove<i
+                                                    class="mdi mdi-delete-sweep ml-2"></i></button>
                                         </form>
 
 
@@ -64,11 +83,7 @@
                         </tbody>
 
                     </table>
-                @else
-                    <div class="text-center mt-3 mb-5">
-                        <h4>No books to approve</h4>
-                    </div>
-                @endif
+                    @endif
             </div>
             <!-- End XP Col -->
         </div>

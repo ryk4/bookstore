@@ -48,7 +48,8 @@ class CommentController extends Controller
 
         $comment->save();
 
-        return redirect()->route('book.show',$book->id);
+        return redirect()->route('book.show',$book->id)
+            ->with('status', 'Commented!');
 
     }
 

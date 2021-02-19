@@ -17,6 +17,14 @@
                     <h4>Modify personal information</h4>
                 </div>
 
+                <div class="text-center col-6 offset-3 mt-3 mb-5">>
+                    @if (session('status'))
+                        <div class="alert alert-danger">
+                            {{ session('status') }}
+                        </div>
+                    @endif
+                </div>
+
                 <div class="d-flex justify-content-center">
                     <div class="col-10">
                         @if ($errors->any())
@@ -35,7 +43,7 @@
                             <div class="form-group">
                                 <label for="current_password_field">Current Password (for authorization)</label>
                                 <input class="form-control" type="password" id="current_password_field" name="current_password" placeholder="Current password"
-                                       autocomplete="new-password" required>
+                                       required>
                             </div>
                             <br>
                             <div class="form-group">

@@ -16,6 +16,14 @@
             <div class="col-md-12 col-lg-12 col-xl-12">
                 <div class="text-center mt-3 mb-5">
 
+                    <div class="text-center col-6 offset-3 mt-3 mb-5">
+                        @if (session('status'))
+                            <div class="alert alert-success">
+                                {{ session('status') }}
+                            </div>
+                        @endif
+                    </div>
+
                     <div class="row">
                     @foreach($books as $book)
                         <div class="col-md-6 col-lg-6 col-xl-2dot4" >

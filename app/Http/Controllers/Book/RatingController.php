@@ -57,7 +57,8 @@ class RatingController extends Controller
 
         $rating->save();
 
-        return redirect()->route('book.show',$book->id);
+        return redirect()->route('book.show',$book->id)
+            ->with('status', 'Rated ' .$rating->star_score.' star(s)');
 
     }
 

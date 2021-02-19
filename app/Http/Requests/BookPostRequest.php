@@ -25,7 +25,7 @@ class BookPostRequest extends FormRequest
     {
         return [
             'title' => 'required|max:255',
-            'description' => 'required|max:255',
+            'description' => 'required|max:500',
             'price' => 'required|numeric',
             'discount' => 'required|numeric',
             'authors' => 'required',

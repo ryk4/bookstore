@@ -5,7 +5,7 @@ use App\Http\Controllers\BookController;
 use App\Http\Controllers\Book\CommentController;
 use App\Http\Controllers\Book\RatingController;
 use App\Http\Controllers\UserController;
-
+use App\Http\Controllers\Admin\AdminController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -22,7 +22,7 @@ use App\Http\Controllers\UserController;
 
 //API
 /*
- * RK
+ *
  * To be added later as it will cause code duplication between api and UI functions. The actual logic would
  * need to be moved elsewhere, then both UI and API controllers would be referencing that logic.
  *
@@ -31,41 +31,42 @@ use App\Http\Controllers\UserController;
  */
 
 
-
 require __DIR__.'/auth.php';
 
+Route::GET('/', [BookController::class, 'index'])->name('book.index');//will be default/starting page
 
 
 //Book
-Route::GET('/', [BookController::class, 'index'])->name('book.index');//will be default/starting page
-Route::GET('/book/manage', [BookController::class, 'manageMenu'])->name('booksManageMenu')->middleware('auth');;
-Route::POST('/book', [BookController::class, 'store'])->name('book.store');
-Route::GET('/book/create', [BookController::class, 'create'])->name('book.create')->middleware('checkRole:normal');;
-Route::GET('/book/{id}', [BookController::class,'show'])->name('book.show');
-Route::GET('/book/{id}/edit', [BookController::class, 'edit'])->name('book.edit')->middleware('auth');;
-Route::PUT('/book/{book}', [BookController::class, 'update'])->name('book.update')->middleware('auth');
-Route::DELETE('/book/{id}', [BookController::class, 'destroy'])->name('book.destroy')->middleware('auth');
+Route::group(['prefix' => 'book'],function(){
+    Route::group(['middleware' => 'checkRole:normal'], function(){
+        Route::POST('/', [BookController::class, 'store'])->name('book.store');
+        Route::GET('/create', [BookController::class, 'create'])->name('book.create');
+        Route::GET('/manage', [BookController::class, 'manageMenu'])->name('booksManageMenu');
+        Route::GET('/{id}/edit', [BookController::class, 'edit'])->name('book.edit');
+        Route::PUT('/{book}', [BookController::class, 'update'])->name('book.update');
+        Route::DELETE('/{id}', [BookController::class, 'destroy'])->name('book.destroy');
 
-Route::POST('/search', [BookController::class, 'search'])->name('book.search');
+        //Book ratings and comments
+        Route::POST('/{book}/rating', [RatingController::class, 'store'])->name('book.rating.store');
+        Route::POST('/{book}/comment', [CommentController::class, 'store'])->name('book.comment.store');
+    });
 
+    Route::GET('/{id}', [BookController::class,'show'])->name('book.show');
+    Route::POST('/search', [BookController::class, 'search'])->name('book.search');
+});
 
-//Book.Comment
-Route::POST('/book/{book}/comment', [CommentController::class, 'store'])->name('book.comment.store');
-
-//Book.rating
-Route::POST('/book/{book}/rating', [RatingController::class, 'store'])->name('book.rating.store');
-
-
-//Users (including admins)
-Route::GET('/user/settings', [UserController::class, 'index'])->name('user.index')->middleware('auth');;
-Route::PUT('/user/settings/{user}', [UserController::class, 'update'])->name('user.update')->middleware('auth');;
-
+//User (including admins)
+Route::group(['prefix' => 'user/settings','middleware' => 'checkRole:normal'],function(){
+    Route::GET('/', [UserController::class, 'index'])->name('user.index');
+    Route::PUT('/{user}', [UserController::class, 'update'])->name('user.update');
+});
 
 //Admin
-Route::GET('/admin/books', [\App\Http\Controllers\Admin\AdminController::class, 'index'])->name('admin.book.index')->middleware('checkRole:admin');
-Route::PUT('/admin/books/{book}/approve', [\App\Http\Controllers\Admin\AdminController::class, 'approve'])->name('admin.book.approve')->middleware('checkRole:admin');
-
-
+Route::group(['prefix' => 'admin/books','middleware' => 'checkRole:admin'],function(){
+    Route::GET('/', [AdminController::class, 'index'])->name('admin.book.index');
+    Route::GET('/manage', [AdminController::class, 'manage_menu_admin'])->name('manage_menu_admin');
+    Route::PUT('/{book}/approve', [AdminController::class, 'approve'])->name('admin.book.approve');
+});
 
 
 

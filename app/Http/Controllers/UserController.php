@@ -76,11 +76,16 @@ class UserController extends Controller
      */
     public function update(Request $request, User $user)
     {
-        $user_current = Auth::user();//compare again $user from request
 
         $request->validate([
             'name' => 'required|string|max:255',
+            'current_password' => 'required',
         ]);
+
+        //check if current password is correct
+        if(!Hash::check($request->current_password, auth()->user()->password)){
+            return back()->with('status', 'Incorrect password.');
+        }
 
         //only validate email if it's different from what's in the DB (this is stupid ?)
         if($request->email != $user->email){
@@ -103,7 +108,8 @@ class UserController extends Controller
 
         $user->save();
 
-        return redirect()->route('user.index');
+        return redirect()->route('book.index')
+            ->with('status', 'Personal information modified!');
 
     }
 

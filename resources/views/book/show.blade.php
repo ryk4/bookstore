@@ -13,6 +13,14 @@
             <h4>{{$book->title}}</h4>
         </div>
 
+        <div class="text-center col-6 offset-3 mt-3 mb-5">
+            @if (session('status'))
+                <div class="alert alert-success">
+                    {{ session('status') }}
+                </div>
+            @endif
+        </div>
+
         <div class="row">
             <div class="col-lg-6 p-3 text-center">
                 <div class="row">

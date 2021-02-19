@@ -16,6 +16,7 @@ use Illuminate\Support\Str;
 
 class BookController extends Controller
 {
+
     public function search(Request $request)
     {
 
@@ -38,7 +39,6 @@ class BookController extends Controller
 
     public function index(){
 
-
         $books = Book::with('authors','genres')
             ->where('status',1)
             ->simplePaginate();
@@ -51,7 +51,8 @@ class BookController extends Controller
     public function manageMenu(){
         //fetch books that belong to the logged in account
 
-        $books = Book::where('user_id',Auth::id())->get();
+        $books = Book::where('user_id',Auth::id())
+            ->simplePaginate();
 
         return view ('book/manage',[
             'books' => $books
@@ -73,7 +74,8 @@ class BookController extends Controller
 
         $book->delete();//Will Cascade children
 
-        return redirect()->route('booksManageMenu');
+        return redirect()->route('booksManageMenu')
+            ->with('status', 'Book deleted!');
     }
 
     public function create(){
@@ -82,11 +84,19 @@ class BookController extends Controller
 
     public function edit($id)
     {
+
         $book = Book::find($id);
 
-        return view('book.edit',[
-            'book' => $book
-        ]);
+        if (Auth::user()->can('update', $book)) {
+
+
+            return view('book.edit', [
+                'book' => $book
+            ]);
+        }
+
+        abort(403, 'Unauthorized action.');
+
     }
 
     public function update(BookPostRequest $request,Book $book)
@@ -130,7 +140,8 @@ class BookController extends Controller
             }
         }
 
-        return redirect()->route('booksManageMenu');
+        return redirect()->route('book.index')
+            ->with('status', 'Book modified!');
     }
 
     public function store(BookPostRequest $request)
@@ -183,11 +194,10 @@ class BookController extends Controller
             $name = '/images/books/' . uniqid() . '.' . $file->extension();
             $file->storePubliclyAs('public', $name);
             $book->update(['cover' => $name]);
-
-
         }
 
-        return redirect()->route('booksManageMenu');
+        return redirect()->route('booksManageMenu')
+            ->with('status', 'Book created!');
     }
 
 }

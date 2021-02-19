@@ -62,4 +62,4 @@ features (login, register, forgot paswd, etc), list books with search option and
 ## Admin account
 - [x] Option to change password
 - [ ] Reply to user's report
-- [ ] Manage and update all the books
+- [x] Manage and update all the books

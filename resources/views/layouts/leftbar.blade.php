@@ -30,7 +30,7 @@
 
                     @if (Auth::user()->getUserLevel() == 'admin')
                         <li>
-                            <a href="#">
+                            <a href="{{route('manage_menu_admin')}}">
                                 <i class="mdi mdi-book-remove"></i><span>Manage All Books</span>
                             </a>
                         </li>
