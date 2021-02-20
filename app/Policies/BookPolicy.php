@@ -54,7 +54,7 @@ class BookPolicy
      */
     public function update(User $user, Book $book)
     {
-        if($user->user_level == 0){ //if admin
+        if($user->user_level == 0 || $user->id == $book->user_id){ //if admin
             return true;
         }
 

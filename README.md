@@ -16,6 +16,18 @@ features (login, register, forgot paswd, etc), list books with search option and
 - PhpStorm  2020.3.2
 - PHP ARTISAN SERVE (NGINX Macos, Xampp Win10)
 
+### Install and run on local
+```sh
+git clone {projectURL}
+composer install
+npm install && npm run dev
+cp .env.example .env
+php artisan key:generate
+php artisan storage:link
+php artisan migrate:fresh --seed
+php artisan serve
+```
+
 ## Landing page (will add "cards" styling.)
 1. List all books
 - [x] Books displayed in 5x5 grid (Bootstrap)
