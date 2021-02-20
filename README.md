@@ -14,7 +14,7 @@ features (login, register, forgot paswd, etc), list books with search option and
 ### Project development environment
 - XAMPP (for MySQL only)
 - PhpStorm  2020.3.2
-- PHP ARTISAN SERVE (NGINX)
+- PHP ARTISAN SERVE (NGINX Macos, Xampp Win10)
 
 ## Landing page (will add "cards" styling.)
 1. List all books
@@ -54,12 +54,12 @@ features (login, register, forgot paswd, etc), list books with search option and
 ## User account
 - [x] Change password feature
 - [x] Change email feature
-- [ ] Option to report a book (for reasons like incorrect description, NSFW content, etc). 
+- [x] Option to report a book (for reasons like incorrect description, NSFW content, etc). 
 - [x] Option to upload a book to the listing, then admin manually confirms if the book should be listed or not
 - [x] Area to manage their books
 - [x] Review the book (star rating + comments)
 
 ## Admin account
 - [x] Option to change password
-- [ ] Reply to user's report
+- [x] Reply to user's report
 - [x] Manage and update all the books
