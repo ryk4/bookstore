@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\BookPostRequest;
+use App\Mail\BookReportMail;
 use App\Models\Author;
 use App\Models\Book;
 
@@ -11,6 +12,7 @@ use Illuminate\Support\Facades\Cookie;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Str;
 
@@ -22,12 +24,12 @@ class BookController extends Controller
 
         $search = $request->input('search_criteria');
 
-        $searched_books = Book::with('authors','genres')
-            ->where('status',1)
-            ->whereHas('authors', function($query) use ($search){
-                $query->where('fullname','LIKE',"%{$search}%");
+        $searched_books = Book::with('authors', 'genres')
+            ->where('status', 1)
+            ->whereHas('authors', function ($query) use ($search) {
+                $query->where('fullname', 'LIKE', "%{$search}%");
             })
-            ->orWhere('title','LIKE',"%{$search}%")
+            ->orWhere('title', 'LIKE', "%{$search}%")
             ->simplePaginate();
 
         $cookie = Cookie::make('search_cookie', $search);
@@ -37,10 +39,11 @@ class BookController extends Controller
         ])->withCookie($cookie);
     }
 
-    public function index(){
+    public function index()
+    {
 
-        $books = Book::with('authors','genres')
-            ->where('status',1)
+        $books = Book::with('authors', 'genres')
+            ->where('status', 1)
             ->simplePaginate();
 
         return view('home', [
@@ -48,47 +51,48 @@ class BookController extends Controller
         ]);
     }
 
-    public function manageMenu(){
+    public function manageMenu()
+    {
         //fetch books that belong to the logged in account
 
-        $books = Book::where('user_id',Auth::id())
+        $books = Book::where('user_id', Auth::id())
             ->simplePaginate();
 
-        return view ('book/manage',[
+        return view('book/manage', [
             'books' => $books
         ]);
     }
 
-    public function show($id){
+    public function show($id)
+    {
 
         $book = Book::with('comments.user')->findOrFail($id);
 
-        return view('book.show',[
+        return view('book.show', [
             'book' => $book
         ]);
     }
 
-    public function destroy($id){
+    public function destroy($id)
+    {
 
         $book = Book::find($id);
 
         $book->delete();//Will Cascade children
 
-        return redirect()->route('booksManageMenu')
-            ->with('status', 'Book deleted!');
+        return back()->with('status', 'Book deleted!');
     }
 
-    public function create(){
+    public function create()
+    {
         return view('book/create');
     }
 
     public function edit($id)
     {
-
         $book = Book::find($id);
 
         if (Auth::user()->can('update', $book)) {
-
 
             return view('book.edit', [
                 'book' => $book
@@ -99,15 +103,15 @@ class BookController extends Controller
 
     }
 
-    public function update(BookPostRequest $request,Book $book)
+    public function update(BookPostRequest $request, Book $book)
     {
         //one ugly looking method...
 
-        $book->title=$request->title;
-        $book->description=$request->description;
-        $book->price=$request->price;
-        $book->discount=$request->discount;
-        $book->title=$request->title;
+        $book->title = $request->title;
+        $book->description = $request->description;
+        $book->price = $request->price;
+        $book->discount = $request->discount;
+        $book->title = $request->title;
 
         $book->save();
 
@@ -116,8 +120,7 @@ class BookController extends Controller
 
         $authors_array = explode(',', $request->authors);
 
-        foreach($authors_array as $author)
-        {
+        foreach ($authors_array as $author) {
             $author_db = Author::firstOrCreate([
                 'fullname' => Str::of($author)->ltrim()
             ]);
@@ -132,7 +135,7 @@ class BookController extends Controller
         DB::table('book_genre')->where('book_id', '=', $book->id)->delete();
 
         //genres (Can this not be in a for-loop ???)
-        if($request->genres != null) {
+        if ($request->genres != null) {
             foreach ($request->genres as $genre) {
                 $genre_id = Genre::where('name', $genre)->first();
                 $book->genres()->attach($genre_id);
@@ -148,27 +151,25 @@ class BookController extends Controller
     {
 
         $book = new Book();
-        $book->title=$request->title;
-        $book->description=$request->description;
-        $book->cover=$request->cover;
-        $book->price=$request->price;
-        $book->discount=$request->discount;
+        $book->title = $request->title;
+        $book->description = $request->description;
+        $book->cover = $request->cover;
+        $book->price = $request->price;
+        $book->discount = $request->discount;
 
         //if admin creates a book, it is confirmed straight away
-        if(Auth::user()->getUserLevel() == 'admin')
-        {
-            $book->status=1;
+        if (Auth::user()->getUserLevel() == 'admin') {
+            $book->status = 1;
         }
 
-        $book->user_id=Auth::id();
+        $book->user_id = Auth::id();
 
         $book->save();
 
         //authors
         $authors_array = explode(',', $request->authors);
 
-        foreach($authors_array as $author)
-        {
+        foreach ($authors_array as $author) {
             $author_db = Author::firstOrCreate([
                 'fullname' => Str::of($author)->ltrim()
             ]);
@@ -180,16 +181,14 @@ class BookController extends Controller
         }
 
         //genres (Can this not be in a for-loop ???)
-        foreach($request->genres as $genre)
-        {
-            $genre_id = Genre::where('name',$genre)->first();
+        foreach ($request->genres as $genre) {
+            $genre_id = Genre::where('name', $genre)->first();
             $book->genres()->attach($genre_id);
 
         }
 
         //image upload
-        if(request()->hasFile('cover'))
-        {
+        if (request()->hasFile('cover')) {
             $file = $request->file('cover');
             $name = '/images/books/' . uniqid() . '.' . $file->extension();
             $file->storePubliclyAs('public', $name);
@@ -198,6 +197,24 @@ class BookController extends Controller
 
         return redirect()->route('booksManageMenu')
             ->with('status', 'Book created!');
+    }
+
+    public function report(Request $request, Book $book)
+    {
+
+        $details = [
+            'title' => $book->title,
+            'user_name' => Auth::user()->name,
+            'user_email' => Auth::user()->email,
+            'complaint' => $request->input('complaint')
+
+        ];
+
+        Mail::to('support@bookstore.lt')->send(new BookReportMail($details));
+
+        return redirect()->route('book.show', ['id' => $book->id])
+            ->with('status', 'Book reported!');
+
     }
 
 }

@@ -31,7 +31,7 @@ class UsersSeeder extends Seeder
         DB::table('users')->insert([
             'id' => 2,
             'name' => 'Normal user test',
-            'email' => 'mormal@normal.com',
+            'email' => 'normal@normal.com',
             'dob' => '2001-02-10',
             'user_level' =>  1,
             'password' => Hash::make('Test123'),

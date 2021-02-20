@@ -45,6 +45,8 @@ Route::group(['prefix' => 'book'],function(){
         Route::GET('/{id}/edit', [BookController::class, 'edit'])->name('book.edit');
         Route::PUT('/{book}', [BookController::class, 'update'])->name('book.update');
         Route::DELETE('/{id}', [BookController::class, 'destroy'])->name('book.destroy');
+        Route::POST('/{book}/report', [BookController::class, 'report'])->name('book.report');
+
 
         //Book ratings and comments
         Route::POST('/{book}/rating', [RatingController::class, 'store'])->name('book.rating.store');

@@ -58,7 +58,7 @@ class BookPolicy
             return true;
         }
 
-        return $user->id == $book->user_id;
+        return false;
     }
 
     /**
