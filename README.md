@@ -7,7 +7,7 @@ features (login, register, forgot paswd, etc), list books with search option and
 
 ### Technologies used
 - Laravel (^8.0)
-- HTML5 and CSS (Bootstrap)
+- HTML5 and CSS (Bootstrap 4)
 - MySQL 
 - PHP 8
 

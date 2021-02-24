@@ -12,52 +12,48 @@ class AdminController extends Controller
 
     public function index()
     {
-        $books_to_approve = Book::where('status',0)->get();
+        $books_to_approve = Book::where('status', 0)->get();
 
-        return view('admin.book.index',[
+        return view('admin.book.index', [
             'books' => $books_to_approve
         ]);
-
     }
 
     public function index_approve()
     {
+        $books_to_approve = Book::where('status', 0)->get();
 
-        $books_to_approve = Book::where('status',0)->get();
-
-        return view('admin.book.index',[
+        return view('admin.book.index', [
             'books' => $books_to_approve
         ]);
-
     }
 
-    public function approve(Request $request,Book $book)
+    public function approve(Request $request, Book $book)
     {
         //one function to do both actions approve and delete
 
         $action = $request->validate; //1- approve, 2-delete (no point keeping in DB)
 
-        if($action==1)
-        {
+        if ($action == 1) {
             $book->status = 1;
             $book->save();
-            $statusMsg= 'Book approved!';
-        }
-        else {
+            $statusMsg = 'Book approved!';
+        } else {
             $book->delete();
-            $statusMsg= 'Book deleted!';
+            $statusMsg = 'Book deleted!';
         }
 
         return redirect()->route('admin.book.index')
             ->with('status', $statusMsg);;
     }
 
-    public function manage_menu_admin(){
+    public function manage_menu_admin()
+    {
         //fetch absolutely all the books in the database
 
-        $books = Book::with('authors','genres')->simplePaginate();
+        $books = Book::with('authors', 'genres')->simplePaginate();
 
-        return view ('book/manage',[
+        return view('book/manage', [
             'books' => $books,
 
         ]);

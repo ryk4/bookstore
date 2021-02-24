@@ -17,7 +17,7 @@
                     <h4>Modify personal information</h4>
                 </div>
 
-                <div class="text-center col-6 offset-3 mt-3 mb-5">>
+                <div class="text-center col-6 offset-3 mt-3 mb-5">
                     @if (session('status'))
                         <div class="alert alert-danger">
                             {{ session('status') }}
@@ -37,7 +37,7 @@
                             </div>
                         @endif
 
-                        <form action="{{route('user.update',$user)}}" method="POST">
+                        <form action="{{route('user.update')}}" method="POST">
                             @method('PUT')
                             @csrf
                             <div class="form-group">
@@ -50,13 +50,13 @@
                             <div class="form-group">
                                 <label for="name_field">Fullname</label>
                                 <input class="form-control" id="name_field" name="name" placeholder="Enter fullname"
-                                       value="{{$user->name}}">
+                                       value="{{auth()->user()->name}}">
                             </div>
 
                             <div class="form-group">
                                 <label for="email_field">Email address</label>
                                 <input class="form-control" id="email_field" name="email" placeholder="Enter email"
-                                       value="{{$user->email}}">
+                                       value="{{auth()->user()->email}}">
                             </div>
 
                             <div class="row">

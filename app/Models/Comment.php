@@ -13,7 +13,11 @@ class Comment extends Model
     public $timestamps = false;
 
     protected $fillable = [
-        'actual_comment'
+        'actual_comment',
+        'book_id',
+        'user_id',
+        'created_at'
+
     ];
 
     public function user()

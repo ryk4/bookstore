@@ -21,16 +21,15 @@ class BookController extends Controller
 
     public function search(Request $request)
     {
-
         $search = $request->input('search_criteria');
 
         $searched_books = Book::with('authors', 'genres')
             ->where('status', 1)
             ->whereHas('authors', function ($query) use ($search) {
-                $query->where('fullname', 'LIKE', "%{$search}%");
-            })
-            ->orWhere('title', 'LIKE', "%{$search}%")
-            ->simplePaginate();
+                $query->where('fullname', 'LIKE', "%{$search}%")
+                    ->orWhere('title', 'LIKE', "%{$search}%");
+            })->simplePaginate();
+
 
         $cookie = Cookie::make('search_cookie', $search);
 
@@ -41,7 +40,6 @@ class BookController extends Controller
 
     public function index()
     {
-
         $books = Book::with('authors', 'genres')
             ->where('status', 1)
             ->simplePaginate();
@@ -54,7 +52,6 @@ class BookController extends Controller
     public function manageMenu()
     {
         //fetch books that belong to the logged in account
-
         $books = Book::where('user_id', Auth::id())
             ->simplePaginate();
 
@@ -65,7 +62,6 @@ class BookController extends Controller
 
     public function show($id)
     {
-
         $book = Book::with('comments.user')->findOrFail($id);
 
         return view('book.show', [
@@ -75,7 +71,6 @@ class BookController extends Controller
 
     public function destroy($id)
     {
-
         $book = Book::find($id);
 
         $book->delete();//Will Cascade children
@@ -92,31 +87,19 @@ class BookController extends Controller
     {
         $book = Book::find($id);
 
-        if (Auth::user()->can('update', $book)) {
-
-            return view('book.edit', [
-                'book' => $book
-            ]);
-        }
-
-        abort(403, 'Unauthorized action.');
+        $this->authorize('update', $book); // automatically will throw 403 if false
+        return view('book.edit', compact('book'));
 
     }
 
     public function update(BookPostRequest $request, Book $book)
     {
-        //one ugly looking method...
-
-        $book->title = $request->title;
-        $book->description = $request->description;
-        $book->price = $request->price;
-        $book->discount = $request->discount;
-        $book->title = $request->title;
+        $book->update($request->validated());
 
         $book->save();
 
-        //delete existing data from pivot table
-        DB::table('author_book')->where('book_id', '=', $book->id)->delete();
+        //detach all authors
+        $book->authors()->detach();
 
         $authors_array = explode(',', $request->authors);
 
@@ -125,20 +108,17 @@ class BookController extends Controller
                 'fullname' => Str::of($author)->ltrim()
             ]);
 
-            DB::table('author_book')->insert([
-                'author_id' => $author_db->id,
-                'book_id' => $book->id
-            ]);
+            $book->authors()->attach($author_db);
         }
 
-        //delete genres authors and add new ones
-        DB::table('book_genre')->where('book_id', '=', $book->id)->delete();
+        //detach genres
+        $book->genres()->detach();
 
-        //genres (Can this not be in a for-loop ???)
+        //this can be simplified as 'Sync' ???
         if ($request->genres != null) {
             foreach ($request->genres as $genre) {
-                $genre_id = Genre::where('name', $genre)->first();
-                $book->genres()->attach($genre_id);
+                $genre_db = Genre::where('name', $genre)->first();
+                $book->genres()->attach($genre_db);
 
             }
         }
@@ -149,22 +129,19 @@ class BookController extends Controller
 
     public function store(BookPostRequest $request)
     {
-
-        $book = new Book();
-        $book->title = $request->title;
-        $book->description = $request->description;
-        $book->cover = $request->cover;
-        $book->price = $request->price;
-        $book->discount = $request->discount;
+        $book = Book::create([
+            'title' => $request->title,
+            'description' => $request->description,
+            'cover' => $request->cover,
+            'price' => $request->price,
+            'discount' => $request->discount,
+            'user_id' => Auth()->user()->id,
+        ]);
 
         //if admin creates a book, it is confirmed straight away
-        if (Auth::user()->getUserLevel() == 'admin') {
+        if (auth()->user()->getUserLevel() == 'admin') {
             $book->status = 1;
         }
-
-        $book->user_id = Auth::id();
-
-        $book->save();
 
         //authors
         $authors_array = explode(',', $request->authors);
@@ -174,17 +151,12 @@ class BookController extends Controller
                 'fullname' => Str::of($author)->ltrim()
             ]);
 
-            DB::table('author_book')->insert([
-                'author_id' => $author_db->id,
-                'book_id' => $book->id
-            ]);
+            $book->authors()->attach($author_db);
         }
 
-        //genres (Can this not be in a for-loop ???)
         foreach ($request->genres as $genre) {
-            $genre_id = Genre::where('name', $genre)->first();
-            $book->genres()->attach($genre_id);
-
+            $genre_db = Genre::where('name', $genre)->first();
+            $book->genres()->attach($genre_db);
         }
 
         //image upload
@@ -201,13 +173,11 @@ class BookController extends Controller
 
     public function report(Request $request, Book $book)
     {
-
         $details = [
             'title' => $book->title,
-            'user_name' => Auth::user()->name,
-            'user_email' => Auth::user()->email,
+            'user_name' => auth()->user()->name,
+            'user_email' => auth()->user()->email,
             'complaint' => $request->input('complaint')
-
         ];
 
         Mail::to('support@bookstore.lt')->send(new BookReportMail($details));

@@ -33,20 +33,19 @@ class RatingController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request,Book $book)
+    public function store(Request $request, Book $book)
     {
         //check if user already rate
 
         $rating = Rating::where([
-            'user_id'=>Auth::id(),
-            'book_id'=>$book->id
+            'user_id' => Auth::id(),
+            'book_id' => $book->id
         ])->first();
 
-
-        if($rating == null)//create score
+        if ($rating == null)//create score
         {
             $rating = new Rating();
             $rating->book_id = $book->id;
@@ -57,15 +56,15 @@ class RatingController extends Controller
 
         $rating->save();
 
-        return redirect()->route('book.show',$book->id)
-            ->with('status', 'Rated ' .$rating->star_score.' star(s)');
+        return redirect()->route('book.show', $book->id)
+            ->with('status', 'Rated ' . $rating->star_score . ' star(s)');
 
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
@@ -76,7 +75,7 @@ class RatingController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
@@ -87,8 +86,8 @@ class RatingController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param \Illuminate\Http\Request $request
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
@@ -99,7 +98,7 @@ class RatingController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)

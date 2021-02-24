@@ -40,7 +40,7 @@
                                 <th scope="col">Price</th>
                                 <th scope="col">Date created</th>
                                 <th scope="col">Status</th>
-                                <th scope="col">Create by</th>
+                                <th scope="col">Created by</th>
                                 <th scope="col">Actions</th>
                             </tr>
                             </thead>
@@ -57,7 +57,7 @@
                                             class="badge-success">
                                         @endif
                                         {{$book->getBookStatus()}}</td>
-                                    <td>Rytis Klimavicius</td>
+                                    <td>{{$book->user->name}}</td>
                                     <td>
                                         <div class="row">
                                             <a class="btn btn-outline-warning mx-2"

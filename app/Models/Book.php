@@ -17,7 +17,8 @@ class Book extends Model
         'price',
         'discount',
         'status',
-        'description'
+        'description',
+        'user_id'
     ];
 
     protected $perPage = 25;

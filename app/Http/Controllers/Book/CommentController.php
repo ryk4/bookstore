@@ -34,29 +34,28 @@ class CommentController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request,Book $book)
+    public function store(Request $request, Book $book)
     {
-
-        $comment = new Comment();
-        $comment->actual_comment = $request->comment;
-        $comment->book_id= $book->id;
-        $comment->user_id=Auth::id();
-        $comment->created_at=Carbon::now();
+        $comment = Comment::create([
+            'actual_comment' => $request->comment,
+            'book_id' => $book->id,
+            'user_id' => Auth()->user()->id,
+            'created_at' => Carbon::now()
+        ]);
 
         $comment->save();
 
-        return redirect()->route('book.show',$book->id)
+        return redirect()->route('book.show', $book->id)
             ->with('status', 'Commented!');
-
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
@@ -67,7 +66,7 @@ class CommentController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
@@ -78,8 +77,8 @@ class CommentController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param \Illuminate\Http\Request $request
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
@@ -90,7 +89,7 @@ class CommentController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)

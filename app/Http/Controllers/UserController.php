@@ -74,7 +74,7 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, User $user)
+    public function update(Request $request)
     {
 
         $request->validate([
@@ -88,7 +88,7 @@ class UserController extends Controller
         }
 
         //only validate email if it's different from what's in the DB (this is stupid ?)
-        if($request->email != $user->email){
+        if($request->email != auth()->user()->email){
             $request->validate([
                 'email' => 'required|string|email|max:255|unique:users',
             ]);
@@ -100,13 +100,13 @@ class UserController extends Controller
                 'password' => 'required|string|confirmed|min:8',
             ]);
 
-            $user->password= Hash::make($request->password);
+            auth()->user()->password= Hash::make($request->password);
         }
 
-        $user->name= $request->name;
-        $user->email= $request->email;
+        auth()->user()->name= $request->name;
+        auth()->user()->email= $request->email;
 
-        $user->save();
+        auth()->user()->save();
 
         return redirect()->route('book.index')
             ->with('status', 'Personal information modified!');

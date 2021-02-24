@@ -42,7 +42,7 @@
                             <th scope="col">Price</th>
                             <th scope="col">Date created</th>
                             <th scope="col">URL</th>
-                            <th scope="col">Create by</th>
+                            <th scope="col">Created by</th>
                             <th scope="col">Actions</th>
                         </tr>
                         </thead>
@@ -56,7 +56,7 @@
                                 <td>
                                     <a href="{{route('book.show',$book)}}">Preview book</a>
                                 </td>
-                                <td>Rytis Klimavicius</td>
+                                <td>{{$book->user->name}}</td>
                                 <td>
                                     <div class="row">
                                         <form action="{{route('admin.book.approve',$book)}}" method="POST">
