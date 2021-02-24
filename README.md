@@ -88,6 +88,6 @@ php artisan serve
 
 ## Task 2 (Vue.js)
 - [ ] Logged in user can post rating/review, but it needs to be saved immediately on the same page and refresh the list of reviews and the average rating.
-- [ ] Review api: GET /api/v1/review and POST /api/v1/review
+- [ ] Review api: GET /api/v1/books/{id}/review and POST /api/v1/books/{id}/review
 - [ ] Review api: GET /api/v1/review and POST /api/v1/review
 

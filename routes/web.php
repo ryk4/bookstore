@@ -6,6 +6,7 @@ use App\Http\Controllers\Book\CommentController;
 use App\Http\Controllers\Book\RatingController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\ApiController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -61,6 +62,9 @@ Route::group(['prefix' => 'book'],function(){
 Route::group(['prefix' => 'user/settings','middleware' => 'checkRole:normal'],function(){
     Route::get('/', [UserController::class, 'index'])->name('user.index');
     Route::put('/', [UserController::class, 'update'])->name('user.update');
+    Route::get('/api', [ApiController::class, 'show'])->name('api.show');
+    Route::post('/api', [ApiController::class, 'store'])->name('api.store');
+
 });
 
 //Admin

@@ -3,7 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\BookController;
-
+use App\Http\Controllers\Api\CommentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,8 +23,8 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::get('books',[BookController::class,'index']);
 Route::get('books/{book}',[BookController::class,'show']);
 //
-//Route::get('api/v1/books/{book}/comments');
-//Route::post('api/v1/books/{book}/comments');
+Route::get('books/{book}/comments',[CommentController::class,'index']);
+Route::post('books/{book}/comments',[CommentController::class,'store'])->middleware('auth:sanctum');
 //
 //Route::get('api/v1/books/{book}/ratings');
 //Route::post('api/v1/books/{book}/ratings');
