@@ -75,3 +75,19 @@ php artisan serve
 - [x] Option to change password
 - [x] Reply to user's report
 - [x] Manage and update all the books
+
+
+# Phase 2
+
+## Task 1 (API resourece)
+- [x] Api to return all books (only approved). /api/v1/books
+- [x] /api/v1/books fields: id, title, cover full url, price, authors and genres
+  (as comma-separated)
+- [x] Api needs to be written as API resource (routes/api.php)
+- [x] Create an endpoint for a single book /api/v1/books/{id} and show the fields the same as in the list but also add Description field. But you need to use the same Laravel API Resource, just with the condition of when to add the description field or not.
+
+## Task 2 (Vue.js)
+- [ ] Logged in user can post rating/review, but it needs to be saved immediately on the same page and refresh the list of reviews and the average rating.
+- [ ] Review api: GET /api/v1/review and POST /api/v1/review
+- [ ] Review api: GET /api/v1/review and POST /api/v1/review
+
