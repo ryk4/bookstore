@@ -18,9 +18,11 @@ class ApiController extends Controller
         $token = Auth()->user()->createToken($request->token_name);
 
 
-        dd($token->plainTextToken);//need to display this once for the user in some pop up box
+       // dd();//need to display this once for the user in some pop up box
 
-        return view('user.api.index');
+        return view('user.api.index',[
+            'secret_api' => $token->plainTextToken
+        ]);
 
     }
 }
