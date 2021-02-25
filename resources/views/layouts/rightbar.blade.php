@@ -51,14 +51,14 @@
                                         <div class="dropdown-item" >Welcome, {{Auth::user()->name}}</div>
                                         <a class="dropdown-item" href="{{ route('user.index') }}"><i class="mdi mdi-settings mr-2"></i> User Settings</a>
 
-                                        <a class="dropdown-item" href="{{ route('api.show') }}"><i class="mdi mdi-settings mr-2"></i> API Settings</a>
+                                        <a class="dropdown-item" href="{{ route('api.show') }}"><i class="mdi mdi-cellphone-key mr-2"></i> API Settings</a>
 
 
                                         <a class="dropdown-item" href="{{ route('logout') }}"
                                            onclick="event.preventDefault();
                                                          document.getElementById('logout-form').submit();">
                                             <i class="mdi mdi-logout mr-2"></i> Logout</a>
-                                        </a>
+
 
                                         <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                                             @csrf

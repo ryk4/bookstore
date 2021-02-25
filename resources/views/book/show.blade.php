@@ -155,6 +155,13 @@
             </div>
         </div>
 
+        <p>posts component before</p>
+
+        <comments-index></comments-index>
+
+        <p>posts component after</p>
+
+
         <div class="container mb-4">
             <div class="row d-flex justify-content-center">
                 <div class="col-md-12">
