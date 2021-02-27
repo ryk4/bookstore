@@ -15,6 +15,7 @@ features (login, register, forgot paswd, etc), list books with search option and
 - XAMPP (for MySQL only)
 - PhpStorm  2020.3.2
 - PHP ARTISAN SERVE (NGINX Macos, Xampp Win10)
+- Vue.js (2.6.12)
 
 ### Install and run on local
 ```sh
@@ -87,7 +88,7 @@ php artisan serve
 - [x] Create an endpoint for a single book /api/v1/books/{id} and show the fields the same as in the list but also add Description field. But you need to use the same Laravel API Resource, just with the condition of when to add the description field or not.
 
 ## Task 2 (Vue.js)
-- [ ] Logged in user can post rating/review, but it needs to be saved immediately on the same page and refresh the list of reviews and the average rating.
+- [x] Logged in user can post rating/review, but it needs to be saved immediately on the same page and refresh the list of reviews and the average rating.
 - [x] Review api: GET /api/v1/books/{id}/review and POST /api/v1/books/{id}/review
 - [x] Review api: GET /api/v1/review and POST /api/v1/review
 

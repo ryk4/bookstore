@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\BookController;
 use App\Http\Controllers\Api\CommentController;
 use App\Http\Controllers\Api\RatingController;
-
+use App\Http\Controllers\Api\UserControlller;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -21,14 +21,23 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('books',[BookController::class,'index']);
-Route::get('books/{book}',[BookController::class,'show']);
-//
-Route::get('books/{book}/comments',[CommentController::class,'index']);
-Route::post('books/{book}/comments',[CommentController::class,'store'])->middleware('auth:sanctum');
-//
-Route::get('books/{book}/ratings',[RatingController::class,'index']);
-Route::post('books/{book}/ratings',[RatingController::class, 'store'])->middleware('auth:sanctum');
+//User API
+Route::get('/user/status',[UserControlller::class,'status'])
+    ->middleware('auth:sanctum');; //is this good for validating in Vue if user isLoggedIn ???
+
+//Book
+Route::group(['prefix' => 'books'],function(){
+    Route::get('/',[BookController::class,'index']);
+    Route::get('/{book}',[BookController::class,'show']);
+
+    Route::get('{book}/comments',[CommentController::class,'index']);
+    Route::get('{book}/ratings',[RatingController::class,'index']);
+
+    Route::group(['middleware' => 'auth:sanctum'],function(){
+        Route::post('{book}/comments',[CommentController::class,'store']);
+        Route::post('{book}/ratings',[RatingController::class, 'store']);
+    });
+});
 
 
 

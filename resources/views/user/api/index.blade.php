@@ -17,6 +17,16 @@
                     <h4>Api tokens</h4>
                 </div>
 
+                @if ($errors->any())
+                    <div class="alert alert-danger">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
+
                 @isset($secret_api)
                     <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" id="myModal">
                         <div class="modal-dialog modal-lg">

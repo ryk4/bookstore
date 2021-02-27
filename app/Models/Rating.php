@@ -14,4 +14,7 @@ class Rating extends Model
     public $timestamps = false;
 
 
+    public function book(){
+        return $this->belongsTo(Book::class);
+    }
 }

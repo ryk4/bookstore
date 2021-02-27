@@ -14,15 +14,13 @@ class CommentController extends Controller
 {
     public function index(Book $book)
     {
-        $comment = CommentResource::collection($book->comments);
+        $comment = CommentResource::collection($book->comments->sortByDesc('created_at'));
 
         return $comment;
     }
 
     public function store(Request $request,Book $book)
     {
-      //  $book->comments()->attach();
-
         $comment = Comment::create([
             'actual_comment' => $request->comment,
             'book_id' => $book->id,
@@ -31,6 +29,5 @@ class CommentController extends Controller
         ]);
 
         return new CommentResource($comment);
-
     }
 }

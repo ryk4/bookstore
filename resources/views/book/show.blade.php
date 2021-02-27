@@ -115,103 +115,18 @@
                                 @endisset
                             </div>
                         </div>
-                        <div class="mx-2 my-5">
-                            <form class="row" action="{{route('book.rating.store',$book)}}" method="POST">
-                                @csrf
-                                <div class="pt-2">
-                                    <select id="xp-rating-fontawesome" name="rating" autocomplete="off">
-                                        <option value=1 selected>1</option>
-                                        <option value=2>2</option>
-                                        <option value=3>3</option>
-                                        <option value=4>4</option>
-                                        <option value=5>5</option>
-                                    </select>
-                                </div>
-                                @guest
-                                @else
-                                    <div class="px-4">
-                                        <button type="submit" class="btn btn-round btn-primary"><i
-                                                class="mdi mdi-send"></i></button>
-                                    </div>
-                                @endguest
-                            </form>
-
-                            <p class="card-subtitle">Avg: {{$book->avg_rating()}} (Total {{$book->ratings->count()}}
-                                )</p>
-                            @guest
-                            @else
-
-                                @if($book->if_rating_left_by_user()!=null)
-                                    <p class="card-subtitle py-1">Your: {{$book->rating_left_by_user()}} stars</p>
-                                @else
-                                    <p class="card-subtitle py-1">Your: Not rated...</p>
-                                @endif
-                            @endguest
-
+                        <div class="my-5">
+                            <ratings-index book_id="{{$book->id}}"></ratings-index>
                         </div>
-
                     </div>
                 </div>
             </div>
         </div>
 
-        <p>posts component before</p>
-
-        <comments-index></comments-index>
-
-        <p>posts component after</p>
-
-
         <div class="container mb-4">
             <div class="row d-flex justify-content-center">
                 <div class="col-md-12">
-                    <div class="headings d-flex justify-content-between align-items-center mb-3">
-                        <h5>Comments ({{$book->comments->count()}})</h5>
-                        <div class="buttons">
-                            <div class="form-check form-switch"></div>
-                        </div>
-                    </div>
-                    @isset($book->comments)
-                        @foreach($book->comments->sortByDesc('created_at') as $comment)
-                            <div class="card p-3 mt-2">
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <div class="user d-flex flex-row align-items-center">
-                                        <img src="/assets/images/topbar/user.jpg" width="30"
-                                             class="user-img rounded-circle mr-2"> <span>
-                                            <small
-                                                class="font-weight-bold text-primary">{{$comment->user->name}}</small>
-                                            <small class="font-weight-bold">{{$comment->actual_comment}}</small></span>
-                                    </div>
-                                    <small>{{$comment->get_days_ago_readable()}}</small>
-                                </div>
-                                <div class="action d-flex justify-content-between mt-2 align-items-center">
-                                    <div class="reply px-4"></div>
-                                    <div class="icons align-items-center"><i
-                                            class="fa fa-check-circle-o check-icon text-primary"></i></div>
-                                </div>
-                            </div>
-                        @endforeach
-                    @endisset
-                    @guest
-                    @else
-                        <form action="{{route('book.comment.store',$book)}}" method="POST">
-                            @csrf
-                            <div class="card p-3 mt-2">
-                                <div class="row justify-content-center">
-                                    <div class="col-9">
-                                        <input class="form-control" id="comment_field" name="comment"
-                                               placeholder="Enter your comment">
-                                    </div>
-                                    <div class="col-2">
-                                        <input type="submit" class="btn btn-outline-primary"
-                                               placeholder="Enter your comment">
-                                    </div>
-                                </div>
-                            </div>
-                        </form>
-                    @endguest
-
-
+                        <comments-index book_id="{{$book->id}}"></comments-index>
                 </div>
             </div>
         </div>

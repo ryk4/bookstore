@@ -12,6 +12,8 @@ class Comment extends Model
 
     public $timestamps = false;
 
+    protected $dates = ['created_at'];
+
     protected $fillable = [
         'actual_comment',
         'book_id',

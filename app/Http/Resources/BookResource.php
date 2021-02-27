@@ -6,7 +6,7 @@ use Illuminate\Http\Resources\Json\JsonResource;
 
 class BookResource extends JsonResource
 {
-    public function __construct($resource, $attributes)
+    public function __construct($resource, $attributes = null)
     {
         // Ensure you call the parent constructor
         parent::__construct($resource);
@@ -28,7 +28,7 @@ class BookResource extends JsonResource
             'title' => $this->title,
             'cover' => $this->cover,
             'price' => $this->price, //already discounted (to be Added)
-            $this->mergeWhen($this->attributes != 0, [
+            $this->mergeWhen($this->attributes == 'description', [
                 'description' => $this->description,
 
             ]),
