@@ -14,7 +14,7 @@ class RatingController extends Controller
 
     /*
     I will not be using Resource as the return values differ
-    based if user is auth or not.
+    based if user is auth or not. If user has not rated yet, no point returning value 0/null.
     */
     public function index(Book $book)
     {
