@@ -15,26 +15,32 @@ class AuthorsSeeder extends Seeder
     public function run()
     {
         DB::table('authors')->insert([
+            'id' => 1,
             'fullname' => 'J.K Rowling'
         ]);
 
         DB::table('authors')->insert([
+            'id' => 2,
             'fullname' => 'Dzonas Valanciunas'
         ]);
 
         DB::table('authors')->insert([
+            'id' => 3,
             'fullname' => 'Lazauskiene'
         ]);
 
         DB::table('authors')->insert([
+            'id' => 4,
             'fullname' => 'Mark Hanson'
         ]);
 
         DB::table('authors')->insert([
+            'id' => 5,
             'fullname' => 'Baudejas'
         ]);
 
         DB::table('authors')->insert([
+            'id' => 6,
             'fullname' => 'Oleg Surajev'
         ]);
 
