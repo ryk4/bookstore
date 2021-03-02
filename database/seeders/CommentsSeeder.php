@@ -16,6 +16,7 @@ class CommentsSeeder extends Seeder
     public function run()
     {
         DB::table('comments')->insert([
+            'id' => 1,
             'actual_comment' => 'I aint no wizard, so cant really rate this.',
             'created_at' => Carbon::now(),
             'user_id' => 1,
@@ -23,6 +24,7 @@ class CommentsSeeder extends Seeder
         ]);
 
         DB::table('comments')->insert([
+            'id' => 2,
             'actual_comment' => 'This book looking kinda THICCCCCCCC.',
             'created_at' => Carbon::now(),
             'user_id' => 1,
