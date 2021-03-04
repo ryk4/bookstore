@@ -44,17 +44,16 @@ export default {
                     }
                     this.avg_rating = response.data.avg_score;
                     this.count_rating = response.data.count_score;
-                });
+                }).catch(() => console.error('error in GET ratings api'));
         },
         post_ratings_api(){
             axios.post(`/api/v1/books/${this.book_id}/ratings`, {rating: this.user_score} )
                 .then(response => {
-
-                }).catch(() => console.error('error in POST api'));
+                    this.get_ratings_api();
+                }).catch(() => console.error('error in POST ratings api'));
         },
         submit_rating(){
             this.post_ratings_api();
-            this.get_ratings_api();
             this.voted_recently = true;
         },
         check_if_logged_in(){

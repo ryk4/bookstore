@@ -62,23 +62,16 @@ export default {
             axios.get(`/api/v1/books/${this.book_id}/comments`)
                 .then(response => {
                     this.comments = response.data.data;
-                });
+                }).catch(() => console.error('error in GET comments api'));
         },
-        async post_comment_api(){
+        post_comment_api(){
              axios.post(`/api/v1/books/${this.book_id}/comments`, this.fields)
                 .then(response => {
-                    let waittt = await response;
-                });
+                    this.get_comments_api();
+                }).catch(() => console.error('error in POST comments api'));
         },
         submit_comment() {
-            // const authMiddleware = () => {
-            //     axios.get('/user').catch(() => console.error('user is not logged in!'));
-            // };
-
             this.post_comment_api();
-            this.get_comments_api();
-
-            //reset fields
             this.fields.comment = '';
         },
         check_if_logged_in(){
@@ -87,7 +80,7 @@ export default {
                     console.log('user logged in!');
                     this.loggedIn = true;
                 })
-                .catch(() => console.error('user is not logged in!'));;
+                .catch(() => console.error('user is not logged in!'));
         }
     }
 }
