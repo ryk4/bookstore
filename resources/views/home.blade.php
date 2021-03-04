@@ -56,7 +56,7 @@
                                         </div>
 
                                         <img class="card-img-top img-fluid p-2"
-                                             src="{{asset('/storage/'.$book->cover)}}"
+                                             src="{{asset($book->cover)}}"
                                              alt="Card image cap" style="height:300px;width:300px;object-fit: cover ;">
 
                                         <div class="card-body">

@@ -86,7 +86,7 @@
                         @endisset
                     </div>
                 </div>
-                <img class="img-thumbnail" src="{{asset('/storage/'.$book->cover)}}"
+                <img class="img-thumbnail" src="{{asset(''.$book->cover)}}"
                      style="max-height:500px;max-width:350px;object-fit: cover ;">
             </div>
 

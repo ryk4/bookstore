@@ -64,16 +64,16 @@ export default {
                     this.comments = response.data.data;
                 });
         },
-        post_comment_api(){
-            axios.post(`/api/v1/books/${this.book_id}/comments`, this.fields)
+        async post_comment_api(){
+             axios.post(`/api/v1/books/${this.book_id}/comments`, this.fields)
                 .then(response => {
-
+                    let waittt = await response;
                 });
         },
         submit_comment() {
-            const authMiddleware = () => {
-                axios.get('/user').catch(() => console.error('user is not logged in!'));
-            };
+            // const authMiddleware = () => {
+            //     axios.get('/user').catch(() => console.error('user is not logged in!'));
+            // };
 
             this.post_comment_api();
             this.get_comments_api();

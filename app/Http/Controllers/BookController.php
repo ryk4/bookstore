@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Response;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 class BookController extends Controller
@@ -162,9 +163,9 @@ class BookController extends Controller
         //image upload
         if (request()->hasFile('cover')) {
             $file = $request->file('cover');
-            $name = '/images/books/' . uniqid() . '.' . $file->extension();
-            $file->storePubliclyAs('public', $name);
-            $book->update(['cover' => $name]);
+            $storagePath = Storage::disk('public')->put('/images/books/', $file);
+            $path = '/images/books/' . basename($storagePath);
+            $book->update(['cover' => $path]);
         }
 
         return redirect()->route('booksManageMenu')
