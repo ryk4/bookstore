@@ -64,14 +64,16 @@ export default {
                     this.comments = response.data.data;
                 }).catch(() => console.error('error in GET comments api'));
         },
-        post_comment_api(){
-             axios.post(`/api/v1/books/${this.book_id}/comments`, this.fields)
+        async post_comment_api(){
+             let post_response = await axios.post(`/api/v1/books/${this.book_id}/comments`, this.fields)
                 .then(response => {
-                    this.get_comments_api();
+
                 }).catch(() => console.error('error in POST comments api'));
+
         },
         submit_comment() {
             this.post_comment_api();
+            this.get_comments_api();
             this.fields.comment = '';
         },
         check_if_logged_in(){
