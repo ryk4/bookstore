@@ -62,7 +62,7 @@ export default {
             console.log('GET api');
             axios.get(`/api/v1/books/${this.book_id}/comments`)
                 .then(response => {
-                    console.log('response GET:'.response.data)
+                    console.log('response GET:' + response.data.data)
                     this.comments = response.data.data;
                 }).catch(() => console.error('error in GET comments api'));
         },
@@ -70,15 +70,15 @@ export default {
             console.log('POST api');
             axios.post(`/api/v1/books/${this.book_id}/comments`, this.fields)
                 .then(response => {
-                    console.log('response POST:'.response.data)
+                    console.log('response POST:'+ response.data.data)
 
                 }).catch(() => console.error('error in POST comments api'));
 
 
         },
-        async submit_comment() {
-            await this.post_comment_api();
-            await this.get_comments_api();
+        submit_comment() {
+            this.post_comment_api();
+            this.get_comments_api();
             this.fields.comment = '';
         },
         check_if_logged_in(){
