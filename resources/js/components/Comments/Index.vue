@@ -71,14 +71,15 @@ export default {
             axios.post(`/api/v1/books/${this.book_id}/comments`, this.fields)
                 .then(response => {
                     console.log('response POST:'+ response.data.data)
-
-                }).catch(() => console.error('error in POST comments api'));
+                }).then(function (){
+                    this.get_comments_api();
+            }).catch(() => console.error('error in POST comments api'));
 
 
         },
         submit_comment() {
             this.post_comment_api();
-            this.get_comments_api();
+           // this.get_comments_api();
             this.fields.comment = '';
         },
         check_if_logged_in(){
