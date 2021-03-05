@@ -67,19 +67,15 @@ export default {
         },
         post_comment_api(){
             console.log('POST api');
-            axios.post(`/api/v1/books/${this.book_id}/comments`, this.fields)
-                .then((response) => {
-                    console.log('doing post now.')
-                })
-                .then(function(){
-                    console.log('doing get now.')
-                    this.get_comments_api();
-                })
-                .catch(() => console.error('error in POST comments api'));
+            return axios.post(`/api/v1/books/${this.book_id}/comments`, this.fields)
+                .then(res => res.data).catch(() => console.error('error in POST comments api'));
         },
         submit_comment() {
+            this.post_comment_api()
+                .then(res => {
+                    this.get_comments_api();
+                });
 
-            this.post_comment_api();
             this.fields.comment = '';
         },
         check_if_logged_in(){
