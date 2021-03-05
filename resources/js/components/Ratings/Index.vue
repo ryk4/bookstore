@@ -2,7 +2,7 @@
     <div class="col-md-12 col-lg-12">
         <div>
             <div v-if="voted_recently">
-                <b-alert class="text-center" variant="success" show>Your vote: {{this.user_score}}</b-alert>
+                <b-alert class="text-center" variant="success" show>Your vote: {{ this.user_score }}</b-alert>
             </div>
 
             <b-form-rating v-model="user_score" @change="submit_rating" :disabled="!loggedIn"></b-form-rating>
@@ -35,34 +35,36 @@ export default {
         this.check_if_logged_in();
 
     },
-    methods : {
-        get_ratings_api(){
+    methods: {
+        get_ratings_api() {
             axios.get(`/api/v1/books/${this.book_id}/ratings`)
                 .then(response => {
-                    if(response.data.user_score != null){
+                    if (response.data.user_score != null) {
                         this.user_score = response.data.user_score;
                     }
                     this.avg_rating = response.data.avg_score;
                     this.count_rating = response.data.count_score;
                 }).catch(() => console.error('error in GET ratings api'));
         },
-        post_ratings_api(){
-            axios.post(`/api/v1/books/${this.book_id}/ratings`, {rating: this.user_score} )
-                .then(response => {
-                    this.get_ratings_api();
-                }).catch(() => console.error('error in POST ratings api'));
+        post_ratings_api() {
+            return axios.post(`/api/v1/books/${this.book_id}/ratings`, {rating: this.user_score})
+                .then(res => res.data).catch(() => console.error('error in POST ratings api'));
         },
-        submit_rating(){
-            this.post_ratings_api();
+        submit_rating() {
+            this.post_ratings_api()
+                .then(res => {
+                    this.get_ratings_api();
+                });
             this.voted_recently = true;
         },
-        check_if_logged_in(){
+        check_if_logged_in() {
             axios.get('/api/v1/user/status')
                 .then(response => {
                     console.log('user logged in!');
                     this.loggedIn = true;
                 })
-                .catch(() => console.error('user is not logged in!'));;
+                .catch(() => console.error('user is not logged in!'));
+            ;
         }
     }
 }

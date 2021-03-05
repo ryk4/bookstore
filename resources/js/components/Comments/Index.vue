@@ -12,10 +12,10 @@
                     <img src="/assets/images/topbar/user.jpg" width="30"
                          class="user-img rounded-circle mr-2"> <span>
                             <small
-                                class="font-weight-bold text-primary">{{comment.user_id}}</small>
-                            <small class="font-weight-bold">{{comment.actual_comment}}</small></span>
+                                class="font-weight-bold text-primary">{{ comment.user_id }}</small>
+                            <small class="font-weight-bold">{{ comment.actual_comment }}</small></span>
                 </div>
-                <small>{{comment.created_at}}</small>
+                <small>{{ comment.created_at }}</small>
             </div>
             <div class="action d-flex justify-content-between mt-2 align-items-center">
                 <div class="reply px-4"></div>
@@ -31,7 +31,7 @@
                                placeholder="Enter your comment">
                     </div>
                     <div class="col-2">
-                        <button type="submit" class="btn btn-outline-primary"  :disabled="fields.comment == ''">
+                        <button type="submit" class="btn btn-outline-primary" :disabled="fields.comment == ''">
                             Comment
                         </button>
                     </div>
@@ -65,7 +65,7 @@ export default {
                     this.comments = response.data.data;
                 }).catch(() => console.error('error in GET comments api'));
         },
-        post_comment_api(){
+        post_comment_api() {
             console.log('POST api');
             return axios.post(`/api/v1/books/${this.book_id}/comments`, this.fields)
                 .then(res => res.data).catch(() => console.error('error in POST comments api'));
@@ -78,7 +78,7 @@ export default {
 
             this.fields.comment = '';
         },
-        check_if_logged_in(){
+        check_if_logged_in() {
             axios.get('/api/v1/user/status')
                 .then(response => {
                     console.log('user logged in!');
