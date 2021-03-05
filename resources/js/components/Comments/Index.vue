@@ -59,16 +59,18 @@ export default {
     },
     methods: {
         get_comments_api() {
-            console.log('GET api')
+            console.log('GET api');
             axios.get(`/api/v1/books/${this.book_id}/comments`)
                 .then(response => {
+                    console.log('response GET:'.response.data)
                     this.comments = response.data.data;
                 }).catch(() => console.error('error in GET comments api'));
         },
         post_comment_api(){
-            console.log('POST api')
+            console.log('POST api');
             axios.post(`/api/v1/books/${this.book_id}/comments`, this.fields)
                 .then(response => {
+                    console.log('response POST:'.response.data)
 
                 }).catch(() => console.error('error in POST comments api'));
 
