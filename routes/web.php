@@ -43,9 +43,9 @@ Route::group(['prefix' => 'book'],function(){
         Route::post('/', [BookController::class, 'store'])->name('book.store');
         Route::get('/create', [BookController::class, 'create'])->name('book.create');
         Route::get('/manage', [BookController::class, 'manageMenu'])->name('booksManageMenu');
-        Route::get('/{id}/edit', [BookController::class, 'edit'])->name('book.edit');
+        Route::get('/{book}/edit', [BookController::class, 'edit'])->name('book.edit');
         Route::put('/{book}', [BookController::class, 'update'])->name('book.update');
-        Route::delete('/{id}', [BookController::class, 'destroy'])->name('book.destroy');
+        Route::delete('/{book}', [BookController::class, 'destroy'])->name('book.destroy');
         Route::post('/{book}/report', [BookController::class, 'report'])->name('book.report');
 
 
@@ -54,7 +54,7 @@ Route::group(['prefix' => 'book'],function(){
         Route::post('/{book}/comment', [CommentController::class, 'store'])->name('book.comment.store');
     });
 
-    Route::get('/{id}', [BookController::class,'show'])->name('book.show');
+    Route::get('/{book}', [BookController::class,'show'])->name('book.show');
     Route::post('/search', [BookController::class, 'search'])->name('book.search');
 });
 
