@@ -34,7 +34,7 @@ use App\Http\Controllers\ApiController;
 
 require __DIR__.'/auth.php';
 
-Route::get('/', [BookController::class, 'index'])->name('book.index');//will be default/starting page
+Route::get('/', [BookController::class, 'index'])->name('books.index');//will be default/starting page
 
 
 //Book
