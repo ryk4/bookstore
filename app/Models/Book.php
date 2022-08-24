@@ -11,6 +11,9 @@ class Book extends Model
 {
     use HasFactory;
 
+    public const STATUS_IS_ACTIVE = 1;
+    public const STATUS_IS_INACTIVE = 0;
+
     protected $fillable = [
         'title',
         'cover',
@@ -18,32 +21,38 @@ class Book extends Model
         'discount',
         'status',
         'description',
-        'user_id'
+        'user_id',
     ];
 
     protected $perPage = 25;
 
-    public function authors(){
+    public function authors()
+    {
         return $this->belongsToMany(Author::class);
     }
 
-    public function genres(){
+    public function genres()
+    {
         return $this->belongsToMany(Genre::class);
     }
 
-    public function comments(){
+    public function comments()
+    {
         return $this->hasMany(Comment::class);
     }
 
-    public function ratings(){
+    public function ratings()
+    {
         return $this->hasMany(Rating::class);
     }
 
-    public function user(){
+    public function user()
+    {
         return $this->belongsTo(User::class);
     }
 
-    public function getBookStatus(){
+    public function getBookStatus()
+    {
         $status = [
             0 => 'Pending',
             1 => 'Active'
@@ -53,48 +62,55 @@ class Book extends Model
         return $status[$this->status];
     }
 
+    public function isActive(): bool
+    {
+        return $this->status;
+    }
+
     public function isAddedThisWeek()
     {
-       return $this->created_at > Carbon::now()->add(-7,'day');
+        return $this->created_at > Carbon::now()->add(-7, 'day');
     }
 
     public function authors_readable()
     {
-        return implode(",",$this->authors()->pluck('fullname')->toArray());
+        return implode(",", $this->authors()->pluck('fullname')->toArray());
     }
 
-    public function price_discounted(){
+    public function price_discounted()
+    {
+        $price_with_discount = $this->price * (1 - ($this->discount / 100));
 
-        $price_with_discount = $this->price * (1-($this->discount / 100));
-
-        return round($price_with_discount,2);
+        return round($price_with_discount, 2);
     }
 
-    public function if_rating_left_by_user(){
-
+    public function if_rating_left_by_user()
+    {
         $rating = Rating::where([
-            'user_id'=>Auth::id(),
-            'book_id'=>$this->id
+            'user_id' => Auth::id(),
+            'book_id' => $this->id,
         ])->first();
 
-        if($rating == null) {
+        if ($rating == null) {
             return false;
         }
 
         return true;
     }
 
-    public function rating_left_by_user(){
+    public function rating_left_by_user()
+    {
         $rating = Rating::where([
-            'user_id'=>Auth::id(),
-            'book_id'=>$this->id
+            'user_id' => Auth::id(),
+            'book_id' => $this->id,
         ])->first()->star_score;
 
         return $rating;
     }
 
-    public function avg_rating(){
-        return round($this->ratings()->avg('star_score'),2);
+    public function avg_rating()
+    {
+        return round($this->ratings()->avg('star_score'), 2);
     }
 
 

@@ -7,6 +7,7 @@ use App\Http\Controllers\Book\RatingController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\ApiController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -18,57 +19,31 @@ use App\Http\Controllers\ApiController;
 |
 */
 
+require __DIR__ . '/auth.php';
 
-
-
-//API
-/*
- *
- * To be added later as it will cause code duplication between api and UI functions. The actual logic would
- * need to be moved elsewhere, then both UI and API controllers would be referencing that logic.
- *
- * Not sure of the best way to do this yet, so will only get to do it, once everything else is completed.
- *
- */
-
-
-require __DIR__.'/auth.php';
-
-Route::get('/', [BookController::class, 'index'])->name('books.index');//will be default/starting page
-
-
-//Book
-Route::group(['prefix' => 'book'],function(){
-    Route::group(['middleware' => 'checkRole:normal'], function(){
-        Route::post('/', [BookController::class, 'store'])->name('book.store');
-        Route::get('/create', [BookController::class, 'create'])->name('book.create');
-        Route::get('/manage', [BookController::class, 'manageMenu'])->name('booksManageMenu');
-        Route::get('/{book}/edit', [BookController::class, 'edit'])->name('book.edit');
-        Route::put('/{book}', [BookController::class, 'update'])->name('book.update');
-        Route::delete('/{book}', [BookController::class, 'destroy'])->name('book.destroy');
-        Route::post('/{book}/report', [BookController::class, 'report'])->name('book.report');
-
-
-        //Book ratings and comments
-        Route::post('/{book}/rating', [RatingController::class, 'store'])->name('book.rating.store');
-        Route::post('/{book}/comment', [CommentController::class, 'store'])->name('book.comment.store');
-    });
-
-    Route::get('/{book}', [BookController::class,'show'])->name('book.show');
-    Route::post('/search', [BookController::class, 'search'])->name('book.search');
+Route::get('/', function () {
+    return redirect()->route('books.index');
 });
 
-//User (including admins)
-Route::group(['prefix' => 'user/settings','middleware' => 'checkRole:normal'],function(){
+
+Route::group(['middleware' => 'checkRole:normal'], function () {
+    Route::resource('books', BookController::class)->only(['create', 'store', 'edit', 'update', 'destroy']);
+
+    Route::get('/my-books', [BookController::class, 'userBooks'])->name('my-books.index');
+    Route::post('/{book}/report', [BookController::class, 'report'])->name('book.report');
+    Route::post('/search', [BookController::class, 'search'])->name('books.search');
+});
+
+Route::resource('books', BookController::class)->only(['index', 'show']);
+
+Route::group(['prefix' => 'user/settings', 'middleware' => 'checkRole:normal'], function () {
     Route::get('/', [UserController::class, 'index'])->name('user.index');
     Route::put('/', [UserController::class, 'update'])->name('user.update');
     Route::get('/api', [ApiController::class, 'show'])->name('api.show');
     Route::post('/api', [ApiController::class, 'store'])->name('api.store');
-
 });
 
-//Admin
-Route::group(['prefix' => 'admin/books','middleware' => 'checkRole:admin'],function(){
+Route::group(['prefix' => 'admin/books', 'middleware' => 'checkRole:admin'], function () {
     Route::get('/', [AdminController::class, 'index'])->name('admin.book.index');
     Route::get('/manage', [AdminController::class, 'manage_menu_admin'])->name('manage_menu_admin');
     Route::put('/{book}/approve', [AdminController::class, 'approve'])->name('admin.book.approve');

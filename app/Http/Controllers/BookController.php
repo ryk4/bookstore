@@ -6,11 +6,8 @@ use App\Http\Requests\BookPostRequest;
 use App\Mail\BookReportMail;
 use App\Models\Book;
 use App\Services\BookService;
-use Illuminate\Support\Facades\Cookie;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
-use Illuminate\Support\Facades\Response;
 
 class BookController extends Controller
 {
@@ -23,49 +20,32 @@ class BookController extends Controller
 
     public function search(Request $request)
     {
-        $search = $request->input('search_criteria');
+        $searchCriteria = $request->input('searchCriteria');
 
-        $searched_books = Book::with('authors', 'genres')
-            ->where('status', 1)
-            ->whereHas('authors', function ($query) use ($search) {
-                $query->where('fullname', 'LIKE', "%{$search}%")
-                    ->orWhere('title', 'LIKE', "%{$search}%");
-            })->simplePaginate();
-
-
-        $cookie = Cookie::make('search_cookie', $search);
-
-        return Response::view('home', [
-            'books' => $searched_books,
-        ])->withCookie($cookie);
+        return redirect()->route('books.index', compact('searchCriteria'));
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        $books = $this->bookService->getAllPaginated();
+        $searchCriteria = $request->input('searchCriteria');
 
-        return view('home', [
-            'books' => $books,
-        ]);
+        $books = $this->bookService->getAllPaginated($searchCriteria);
+
+        return view('book.index', compact('books', 'searchCriteria'));
     }
 
-    public function manageMenu()
+    public function userBooks()
     {
-        $books = Book::where('user_id', Auth::id())
-            ->simplePaginate();
+        $books = $this->bookService->getAllBelongingToAuthUserPaginated();
 
-        return view('book/manage', [
-            'books' => $books,
-        ]);
+        return view('user.book.index', compact('books'));
     }
 
     public function show(Book $book)
     {
         $book = $this->bookService->getWithComments($book);
 
-        return view('book.show', [
-            'book' => $book,
-        ]);
+        return view('book.show', compact('book'));
     }
 
     public function destroy(Book $book)
@@ -91,7 +71,7 @@ class BookController extends Controller
     {
         $this->bookService->update($book, $request);
 
-        return redirect()->route('book.index')
+        return redirect()->route('books.index')
             ->with('status', 'Book modified!');
     }
 
@@ -99,7 +79,7 @@ class BookController extends Controller
     {
         $this->bookService->create($request);
 
-        return redirect()->route('booksManageMenu')
+        return redirect()->route('my-books.index')
             ->with('status', 'Book created!');
     }
 
@@ -114,8 +94,7 @@ class BookController extends Controller
 
         Mail::to('support@bookstore.lt')->send(new BookReportMail($details));
 
-        return redirect()->route('book.show', ['id' => $book->id])
+        return redirect()->route('books.show', ['id' => $book->id])
             ->with('status', 'Book reported!');
     }
-
 }

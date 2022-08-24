@@ -15,12 +15,13 @@
             <!-- Start XP Col -->
             <div class="col-md-5 col-lg-3 order-3 order-md-2">
                 <div class="xp-searchbar">
-                    <form action="{{ route('book.search') }}" method="POST" >
+                    <form action="{{ route('books.search') }}" method="POST" >
+                        @method('post')
                         @csrf
 
                         <div class="input-group">
-                          <input type="search" name="search_criteria" class="form-control" placeholder="Search"
-                                 aria-label="Search" aria-describedby="button-addon2" value="{{Cookie::get('search_cookie')}}">
+                          <input type="search" name="searchCriteria" class="form-control" placeholder="Search"
+                                 aria-label="Search" aria-describedby="button-addon2" value="{{ $searchCriteria ?? '' }}">
                           <div class="input-group-append">
                             <button class="btn" type="submit" id="button-addon2">GO</button>
                           </div>

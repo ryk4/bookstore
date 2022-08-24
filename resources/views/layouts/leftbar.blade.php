@@ -23,7 +23,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="{{ route('booksManageMenu') }}">
+                        <a href="{{ route('my-books.index') }}">
                             <i class="mdi mdi-book-open-page-variant"></i><span>My Books</span>
                         </a>
                     </li>

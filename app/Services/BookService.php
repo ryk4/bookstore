@@ -12,11 +12,22 @@ use Illuminate\Support\Str;
 
 class BookService
 {
-    public function getAllPaginated(): Paginator
+    public function getAllPaginated(string $searchCriteria = null): Paginator
     {
         return Book::with('authors', 'genres')
-            ->where('status', 1)
-            ->simplePaginate();
+            ->where('status', '=', Book::STATUS_IS_ACTIVE)
+            ->when($searchCriteria, function ($query) use ($searchCriteria) {
+                $query->where(function ($query) use ($searchCriteria) {
+                    $query->whereHas('authors', function ($query) use ($searchCriteria) {
+                        $query->where('fullname', 'LIKE', "%{$searchCriteria}%");
+                    })->orWhere('title', 'LIKE', "%{$searchCriteria}%");
+                });
+            })->simplePaginate();
+    }
+
+    public function getAllBelongingToAuthUserPaginated(int $paginate = 40): Paginator
+    {
+        return auth()->user()->books()->simplePaginate($paginate);
     }
 
     public function getWithComments(Book $book): Book
@@ -35,25 +46,22 @@ class BookService
             'user_id'     => Auth()->user()->id,
         ]);
 
-        //if admin creates a book, it is confirmed straight away
         if (auth()->user()->getUserLevel() == 'admin') {
             $book->status = 1;
         }
 
         self::attachAuthors($book, $request->authors);
 
-        foreach ($request->genres as $genre) {
-            $genre_db = Genre::where('name', $genre)->first();
-            $book->genres()->attach($genre_db);
-        }
+        self::attachNewGenresAndDetachOld($book, $request->genres);
 
-        //image upload
         if (request()->hasFile('cover')) {
             $file        = $request->file('cover');
             $storagePath = Storage::disk('public')->put('/images/books/', $file);
-            $path        = '/images/books/'.basename($storagePath);
-            $book->update(['cover' => $path]);
+            $path        = '/images/books/' . basename($storagePath);
+            $book->cover = $path;
         }
+
+        $book->save();
 
         return $book;
     }
@@ -66,15 +74,7 @@ class BookService
 
         self::attachAuthors($book, $request->authors);
 
-        //detach genres
-        $book->genres()->detach();
-
-        if ($request->genres != null) {
-            foreach ($request->genres as $genre) {
-                $genre_db = Genre::where('name', $genre)->first();
-                $book->genres()->attach($genre_db);
-            }
-        }
+        self::attachNewGenresAndDetachOld($book, $request->genres);
 
         return $book;
     }
@@ -96,6 +96,18 @@ class BookService
             ]);
 
             $book->authors()->attach($author_db);
+        }
+    }
+
+    private function attachNewGenresAndDetachOld(Book $book, $genres): void
+    {
+        $book->genres()->detach();
+
+        if ($genres != null) {
+            foreach ($genres as $genre) {
+                $genre_db = Genre::where('name', $genre)->first();
+                $book->genres()->attach($genre_db);
+            }
         }
     }
 }

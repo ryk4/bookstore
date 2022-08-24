@@ -49,11 +49,9 @@ class AdminController extends Controller
 
     public function manage_menu_admin()
     {
-        //fetch absolutely all the books in the database
-
         $books = Book::with('authors', 'genres')->simplePaginate();
 
-        return view('book/manage', [
+        return view('user.book.index', [
             'books' => $books,
 
         ]);

@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Auth\Passwords\CanResetPassword;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Auth;
@@ -23,7 +24,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        'dob'
+        'dob',
     ];
 
     /**
@@ -45,12 +46,16 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    public function books(): HasMany
+    {
+        return $this->hasMany(Book::class);
+    }
 
     public function getUserLevel()
     {
         $roles = [
             0 => 'admin',
-            1 => 'normal'
+            1 => 'normal',
         ];
 
         return $roles[$this->user_level];
