@@ -8,10 +8,8 @@ class BookResource extends JsonResource
 {
     public function __construct($resource, $attributes = null)
     {
-        // Ensure you call the parent constructor
         parent::__construct($resource);
         $this->resource = $resource;
-
         $this->attributes = $attributes;
     }
 
@@ -32,8 +30,8 @@ class BookResource extends JsonResource
                 'description' => $this->description,
 
             ]),
-            'authors' => ($this->authors)->implode('fullname',' ,'),
-            'genres' => ($this->genres)->implode('name',' ,'),
+            'authors' => ($this->authors)->implode('fullname', ' ,'),
+            'genres' => ($this->genres)->implode('name', ' ,'),
         ];
     }
 }

@@ -38,12 +38,12 @@ class BookService
     public function create(Request $request): Book
     {
         $book = Book::create([
-            'title'       => $request->title,
+            'title' => $request->title,
             'description' => $request->description,
-            'cover'       => $request->cover,
-            'price'       => $request->price,
-            'discount'    => $request->discount,
-            'user_id'     => Auth()->user()->id,
+            'cover' => $request->cover,
+            'price' => $request->price,
+            'discount' => $request->discount,
+            'user_id' => Auth()->user()->id,
         ]);
 
         if (auth()->user()->getUserLevel() == 'admin') {
@@ -55,9 +55,9 @@ class BookService
         self::attachNewGenresAndDetachOld($book, $request->genres);
 
         if (request()->hasFile('cover')) {
-            $file        = $request->file('cover');
+            $file = $request->file('cover');
             $storagePath = Storage::disk('public')->put('/images/books/', $file);
-            $path        = '/images/books/' . basename($storagePath);
+            $path = '/images/books/' . basename($storagePath);
             $book->cover = $path;
         }
 

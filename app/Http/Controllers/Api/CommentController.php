@@ -14,18 +14,16 @@ class CommentController extends Controller
 {
     public function index(Book $book)
     {
-        $comment = CommentResource::collection($book->comments->sortByDesc('created_at'));
-
-        return $comment;
+        return CommentResource::collection($book->comments->sortByDesc('created_at'));
     }
 
-    public function store(Request $request,Book $book)
+    public function store(Request $request, Book $book)
     {
         $comment = Comment::create([
             'actual_comment' => $request->comment,
             'book_id' => $book->id,
             'user_id' => Auth()->user()->id,
-            'created_at' => Carbon::now()
+            'created_at' => Carbon::now(),
         ]);
 
         return new CommentResource($comment);

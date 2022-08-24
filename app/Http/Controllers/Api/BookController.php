@@ -11,15 +11,11 @@ class BookController extends Controller
 {
     public function index()
     {
-        $books = BookResource::collection(Book::where('status',1)->with('authors','genres')->get());
-
-        return $books;
+        return BookResource::collection(Book::where('status', 1)->with('authors', 'genres')->get());
     }
 
-    public function show($book)
+    public function show(Book $book)
     {
-        $book = new BookResource(Book::findOrFail($book),'description');
-
-        return $book;
+        return new BookResource($book, 'description');
     }
 }

@@ -86,10 +86,10 @@ class BookController extends Controller
     public function report(Request $request, Book $book)
     {
         $details = [
-            'title'      => $book->title,
-            'user_name'  => auth()->user()->name,
+            'title' => $book->title,
+            'user_name' => auth()->user()->name,
             'user_email' => auth()->user()->email,
-            'complaint'  => $request->input('complaint'),
+            'complaint' => $request->input('complaint'),
         ];
 
         Mail::to('support@bookstore.lt')->send(new BookReportMail($details));

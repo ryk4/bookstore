@@ -25,7 +25,6 @@ Route::get('/', function () {
     return redirect()->route('books.index');
 });
 
-
 Route::group(['middleware' => 'checkRole:normal'], function () {
     Route::resource('books', BookController::class)->only(['create', 'store', 'edit', 'update', 'destroy']);
 
