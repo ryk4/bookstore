@@ -5,6 +5,7 @@ namespace App\Models;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Comment extends Model
 {
@@ -19,27 +20,22 @@ class Comment extends Model
         'book_id',
         'user_id',
         'created_at'
-
     ];
 
-    public function user()
+    public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
     }
 
-    public function get_days_ago_readable()
+    public function get_days_ago_readable(): string
     {
         $readable_days_ago = Carbon::parse($this->created_at)->diffInDays(Carbon::now());
 
-        if($readable_days_ago == 0)
-        {
+        if ($readable_days_ago == 0) {
             return 'Today';
+        } else {
+            return $readable_days_ago . ' day(s) ago';
         }
-        else{
-            return $readable_days_ago.' day(s) ago';
-        }
-
-
     }
 
 }

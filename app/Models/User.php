@@ -13,7 +13,13 @@ use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
-    use HasFactory, Notifiable, CanResetPassword, HasApiTokens;
+    use CanResetPassword;
+    use HasApiTokens;
+    use HasFactory;
+    use Notifiable;
+
+    public const ROLE_ADMIN = 0;
+    public const ROLE_NORMAL = 1;
 
     /**
      * The attributes that are mass assignable.
@@ -51,7 +57,12 @@ class User extends Authenticatable
         return $this->hasMany(Book::class);
     }
 
-    public function getUserLevel()
+    public function isAdmin(): bool
+    {
+        return $this->user_level === self::ROLE_ADMIN;
+    }
+
+    public function getUserLevelInReadableFormat(): string
     {
         $roles = [
             0 => 'admin',

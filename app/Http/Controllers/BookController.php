@@ -72,15 +72,15 @@ class BookController extends Controller
         $this->bookService->update($book, $request);
 
         return redirect()->route('books.index')
-            ->with('status', 'Book modified!');
+            ->with('status', 'Book modified');
     }
 
     public function store(BookPostRequest $request)
     {
-        $this->bookService->create($request);
+        $this->bookService->store($request);
 
         return redirect()->route('my-books.index')
-            ->with('status', 'Book created!');
+            ->with('status', 'Book created');
     }
 
     public function report(Request $request, Book $book)
@@ -95,6 +95,6 @@ class BookController extends Controller
         Mail::to('support@bookstore.lt')->send(new BookReportMail($details));
 
         return redirect()->route('books.show', ['id' => $book->id])
-            ->with('status', 'Book reported!');
+            ->with('status', 'Book reported');
     }
 }

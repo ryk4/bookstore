@@ -35,7 +35,7 @@ class BookService
         return Book::with('comments.user')->find($book->id);;
     }
 
-    public function create(Request $request): Book
+    public function store(Request $request): Book
     {
         $book = Book::create([
             'title' => $request->title,
@@ -46,7 +46,7 @@ class BookService
             'user_id' => Auth()->user()->id,
         ]);
 
-        if (auth()->user()->getUserLevel() == 'admin') {
+        if (auth()->user()->isAdmin()) {
             $book->status = 1;
         }
 
@@ -61,7 +61,7 @@ class BookService
             $book->cover = $path;
         }
 
-        $book->save();
+        self::saveChangesToDatabase($book);
 
         return $book;
     }
@@ -70,11 +70,11 @@ class BookService
     {
         $book->update($request->validated());
 
-        $book->save();
-
         self::attachAuthors($book, $request->authors);
 
         self::attachNewGenresAndDetachOld($book, $request->genres);
+
+        self::saveChangesToDatabase($book);
 
         return $book;
     }
@@ -103,11 +103,16 @@ class BookService
     {
         $book->genres()->detach();
 
-        if ($genres != null) {
+        if ($genres !== null) {
             foreach ($genres as $genre) {
                 $genre_db = Genre::where('name', $genre)->first();
                 $book->genres()->attach($genre_db);
             }
         }
+    }
+
+    private function saveChangesToDatabase(Book $book): void
+    {
+        $book->save();
     }
 }

@@ -4,17 +4,19 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Rating extends Model
 {
     use HasFactory;
 
-    protected $fillable =['star_score'];
+    protected $fillable = ['star_score'];
 
     public $timestamps = false;
 
 
-    public function book(){
+    public function book(): BelongsTo
+    {
         return $this->belongsTo(Book::class);
     }
 }
