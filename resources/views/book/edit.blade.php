@@ -3,27 +3,19 @@
 @endsection
 @extends('layouts.main')
 @section('style')
-    <!-- Select2 CSS -->
     <link href="{{ asset('assets/plugins/select2/select2.min.css') }}" rel="stylesheet" type="text/css"/>
-    <!-- Tagsinput CSS -->
     <link href="{{ asset('assets/plugins/bootstrap-tagsinput/bootstrap-tagsinput.css') }}" rel="stylesheet"
           type="text/css"/>
     <link href="{{ asset('assets/plugins/bootstrap-tagsinput/bootstrap-tagsinput-typeahead.css') }}" rel="stylesheet"
           type="text/css"/>
 @endsection
 @section('rightbar-content')
-
-    <!-- Start XP Contentbar -->
     <div class="xp-contentbar">
-        <!-- Write page content code here -->
-        <!-- Start XP Row -->
         <div class="row">
-            <!-- Start XP Col -->
             <div class="col-md-12 col-lg-12 col-xl-12">
                 <div class="text-center mt-3 mb-5">
                     <h4>Edit book</h4>
                 </div>
-
                 @if ($errors->any())
                     <div class="alert alert-danger">
                         <ul>
@@ -33,7 +25,6 @@
                         </ul>
                     </div>
                 @endif
-
                 <div class="d-flex justify-content-center">
                     <div class="col-10">
                         <form action="{{route('books.update',$book)}}" method="POST" enctype="multipart/form-data">
@@ -81,22 +72,17 @@
 
                                 </div>
                             </div>
-
                             <div class="d-flex justify-content-center my-4">
                                 <button class="btn btn-outline-success m-2 my-sm-0 " type="submit">Update</button>
-                                <a class="btn btn-outline-warning m-2 my-sm-0" href="{{route('my-books.index')}}">Cancel</a>
+                                <a class="btn btn-outline-warning m-2 my-sm-0"
+                                   href="{{route('books.my-books.index')}}">Cancel</a>
                             </div>
-
                         </form>
                     </div>
                 </div>
-
             </div>
-            <!-- End XP Col -->
         </div>
-        <!-- End XP Row -->
     </div>
-    <!-- End XP Contentbar -->
 @endsection
 @section('script')
     <!-- Select2 JS -->

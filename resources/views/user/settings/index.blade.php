@@ -37,7 +37,7 @@
                             </div>
                         @endif
 
-                        <form action="{{route('user.update')}}" method="POST">
+                        <form action="{{route('user.settings.update', auth()->id())}}" method="POST">
                             @method('PUT')
                             @csrf
                             <div class="form-group">

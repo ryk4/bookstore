@@ -24,13 +24,6 @@ class BookController extends Controller
         return view('user.book.index', compact('books'));
     }
 
-    public function show(Book $book)
-    {
-        $book = $this->bookService->getWithComments($book);
-
-        return view('book.show', compact('book'));
-    }
-
     public function destroy(Book $book)
     {
         $this->authorize('update', $book);

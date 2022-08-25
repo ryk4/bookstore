@@ -6,9 +6,7 @@
 
 @endsection
 @section('rightbar-content')
-
     <div class="xp-contentbar">
-
         <div class="row mt-3 mb-2">
             <div class="col-6 offset-3 text-center">
                 <h4>{{$book->title}}</h4>
@@ -22,8 +20,6 @@
                 </div>
             @endguest
         </div>
-
-        <!-- Modal Report Start -->
         <div class="modal fade" id="xp-varying-modal" tabindex="-1" role="dialog"
              aria-labelledby="xp-varying-modal-label" aria-hidden="true">
             <div class="modal-dialog" role="document">
@@ -35,7 +31,8 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        <form action="{{route('book.report',$book)}}" method="POST">
+                        <form action="{{route('books.report',$book)}}" method="POST">
+                            @method('POST')
                             @csrf
 
                             <label class="col-form-label">We apologize you are unhappy or feel offended by this
@@ -56,9 +53,6 @@
                 </div>
             </div>
         </div>
-        <!-- Modal Report end -->
-
-
         <div class="text-center col-6 offset-3 mt-3 mb-5">
             @if (session('status'))
                 <div class="alert alert-success">
@@ -66,16 +60,15 @@
                 </div>
             @endif
         </div>
-
-
         <div class="row">
             <div class="col-lg-6 p-3 text-center">
                 <div class="row">
                     <div class="col-md-5 offset-1">
                         @if($book->discount != 0)
-                            <h5 class="ml-5"><span
-                                    class="badge badge-success">€ {{$book->price_discounted()}}</span><span
-                                    class="badge badge-secondary"><del>€ {{$book->price}}</del></span></h5>
+                            <h5 class="ml-5">
+                                <span class="badge badge-success">€ {{$book->price_discounted()}}</span>
+                                <span class="badge badge-secondary ms-2"><del>€ {{$book->price}}</del></span>
+                            </h5>
                         @else
                             <h5>€ {{$book->price}}</h5>
                         @endif
@@ -89,11 +82,9 @@
                 <img class="img-thumbnail" src="{{asset(''.$book->cover)}}"
                      style="max-height:500px;max-width:350px;object-fit: cover ;">
             </div>
-
             <div class="col-lg-5 p-3 my-4">
                 <div class="container">
                     <p>{{$book->description}}</p>
-
                     <div class="pt-5">
                         <div class="row">
                             <div class="col-md-6">
@@ -122,11 +113,10 @@
                 </div>
             </div>
         </div>
-
         <div class="container mb-4">
             <div class="row d-flex justify-content-center">
                 <div class="col-md-12">
-                        <comments-index book_id="{{$book->id}}"></comments-index>
+                    <comments-index book_id="{{$book->id}}"></comments-index>
                 </div>
             </div>
         </div>

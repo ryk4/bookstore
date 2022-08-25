@@ -8,9 +8,10 @@ use Illuminate\Queue\SerializesModels;
 
 class BookReportMail extends Mailable
 {
-    use Queueable, SerializesModels;
+    use Queueable;
+    use SerializesModels;
 
-    public $details;
+    public array $details;
 
     /**
      * Create a new message instance.

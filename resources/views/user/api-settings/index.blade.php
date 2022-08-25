@@ -82,10 +82,8 @@
                 </div>
                 <div class="text-center mt-5 mb-5">
                     <h5>Create API Key</h5>
-                <form id="generate-token-form" action="{{ route('api.store') }}" method="POST">
+                <form id="generate-token-form" action="{{ route('user.api-settings.store') }}" method="POST">
                     @csrf
-
-
                     <div class="form-group col-lg-6 offset-3 my-3">
                         <input class="form-control" id="token_field" name="token_name"
                                value="{{ old('price') }}" placeholder="Enter token name">

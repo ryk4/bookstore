@@ -1,15 +1,15 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Settings;
 
+use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreApiRequest;
-use Illuminate\Http\Request;
 
-class ApiController extends Controller
+class ApiTokenController extends Controller
 {
-    public function show()
+    public function index()
     {
-        return view('user.api.index');
+        return view('user.api-settings.index');
     }
 
     public function store(StoreApiRequest $request)
