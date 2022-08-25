@@ -12,13 +12,14 @@ class BookReportMail extends Mailable
     use SerializesModels;
 
     public array $details;
+    public $subject = "Book report received";
 
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct($details)
+    public function __construct(array $details)
     {
         $this->details = $details;
     }
@@ -30,7 +31,6 @@ class BookReportMail extends Mailable
      */
     public function build()
     {
-        return $this->subject('Book report email')->from($this->details['user_email'])
-            ->view('email.report');
+        return $this->subject('Book report email')->from($this->details['user_email'])->view('email.report');
     }
 }

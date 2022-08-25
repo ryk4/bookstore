@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\BookPostRequest;
+use App\Http\Requests\StoreBookRequest;
 use App\Models\Book;
 use App\Services\BookService;
 use Illuminate\Http\Request;
@@ -45,7 +45,7 @@ class BookController extends Controller
         return view('book.edit', compact('book'));
     }
 
-    public function update(BookPostRequest $request, Book $book)
+    public function update(StoreBookRequest $request, Book $book)
     {
         $this->authorize('update', $book);
 
@@ -55,7 +55,7 @@ class BookController extends Controller
             ->with('status', 'Book modified');
     }
 
-    public function store(BookPostRequest $request)
+    public function store(StoreBookRequest $request)
     {
         $this->bookService->store($request);
 

@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Settings;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\StoreApiRequest;
+use App\Http\Requests\StoreApiTokenRequest;
 
 class ApiTokenController extends Controller
 {
@@ -12,7 +12,7 @@ class ApiTokenController extends Controller
         return view('user.api-settings.index');
     }
 
-    public function store(StoreApiRequest $request)
+    public function store(StoreApiTokenRequest $request)
     {
         $token = Auth()->user()->createToken($request->token_name);
 

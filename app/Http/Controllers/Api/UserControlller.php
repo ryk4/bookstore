@@ -9,8 +9,6 @@ class UserControlller extends Controller
 {
     public function status()
     {
-
-
         return 'logged in';
     }
 }

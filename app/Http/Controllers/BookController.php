@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\BookPostRequest;
 use App\Mail\BookReportMail;
 use App\Models\Book;
 use App\Services\BookService;
@@ -50,7 +49,7 @@ class BookController extends Controller
             'complaint' => $request->input('complaint'),
         ];
 
-        Mail::to('support@bookstore.lt')->send(new BookReportMail($details));
+        Mail::to(env('MAIL_TO_MAIN_EMAIL'))->queue(new BookReportMail($details));
 
         return redirect()->route('books.show', compact('book'))
             ->with('status', 'Book reported');
