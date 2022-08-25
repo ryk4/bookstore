@@ -3,84 +3,70 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\BookPostRequest;
 use App\Models\Book;
+use App\Services\BookService;
 use Illuminate\Http\Request;
 
 class BookController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    private BookService $bookService;
+
+    public function __construct()
+    {
+        $this->bookService = new BookService();
+    }
+
     public function index()
     {
-        //
+        $books = $this->bookService->getAllBelongingToAuthUserPaginated();
+
+        return view('user.book.index', compact('books'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Book  $book
-     * @return \Illuminate\Http\Response
-     */
     public function show(Book $book)
     {
-        //
+        $book = $this->bookService->getWithComments($book);
+
+        return view('book.show', compact('book'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Book  $book
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Book $book)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Book  $book
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Book $book)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Book  $book
-     * @return \Illuminate\Http\Response
-     */
     public function destroy(Book $book)
     {
-        //
+        $this->authorize('update', $book);
+
+        $this->bookService->delete($book);
+
+        return back()->with('status', 'Book deleted!');
+    }
+
+    public function create()
+    {
+        return view('book/create');
+    }
+
+    public function edit(Book $book)
+    {
+        $this->authorize('update', $book);
+
+        return view('book.edit', compact('book'));
+    }
+
+    public function update(BookPostRequest $request, Book $book)
+    {
+        $this->authorize('update', $book);
+
+        $this->bookService->update($book, $request);
+
+        return redirect()->route('books.index')
+            ->with('status', 'Book modified');
+    }
+
+    public function store(BookPostRequest $request)
+    {
+        $this->bookService->store($request);
+
+        return redirect()->route('my-books.index')
+            ->with('status', 'Book created');
     }
 }

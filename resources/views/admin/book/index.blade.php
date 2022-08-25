@@ -6,14 +6,9 @@
 
 @endsection
 @section('rightbar-content')
-    <!-- Start XP Contentbar -->
     <div class="xp-contentbar">
-        <!-- Write page content code here -->
-        <!-- Start XP Row -->
         <div class="row">
-            <!-- Start XP Col -->
             <div class="col-md-12 col-lg-12 col-xl-12">
-
                 @if($books->count() > 0)
                     <div class="text-center mt-3 mb-5">
                         <h4>Approve books</h4>
@@ -31,10 +26,7 @@
                         </div>
                     @endif
                 </div>
-
                 @if($books->count() > 0)
-
-
                     <table class="table table-bordered">
                         <thead>
                         <tr>
@@ -54,42 +46,71 @@
                                 <td>€ {{$book->price}}</td>
                                 <td>{{$book->created_at}}</td>
                                 <td>
-                                    <a href="{{route('book.show',$book)}}">Preview book</a>
+                                    <a href="{{route('books.show',$book)}}">Preview book</a>
                                 </td>
                                 <td>{{$book->user->name}}</td>
                                 <td>
                                     <div class="row">
-                                        <form action="{{route('admin.book.approve',$book)}}" method="POST">
-                                            @method('PUT')
-                                            @csrf
-                                            <input name="validate" value="1" hidden>
-                                            <button type="submit" class="btn btn-outline-success mx-2">Approve<i
-                                                    class="mdi mdi-plus ml-2"></i></button>
-                                        </form>
-                                        <form action="{{route('admin.book.approve',$book)}}" method="POST">
-                                            @method('PUT')
-                                            @csrf
-                                            <input name="validate" value="2" hidden>
-                                            <button type="submit" class="btn btn-outline-danger mx-2">Remove<i
-                                                    class="mdi mdi-delete-sweep ml-2"></i></button>
-                                        </form>
+                                        @if(! $book->isActive())
+                                            <form action="{{route('admin.books.approve',$book)}}" method="POST">
+                                                @method('POST')
+                                                @csrf
 
-
+                                                <button type="submit" class="btn btn-outline-success mx-2">Approve<i
+                                                        class="mdi mdi-plus ml-2"></i></button>
+                                            </form>
+                                        @endif
+                                        <a class="btn btn-outline-warning mx-2"
+                                           href="{{route('books.edit', $book->id)}}">Edit</a>
+                                        <button type="button" class="btn btn-outline-danger" data-toggle="modal"
+                                                data-target="#confirmRemoveBookModal-{{$book->id}}">Delete
+                                            <i class="mdi mdi-delete-sweep ml-2"></i>
+                                        </button>
+                                        <div class="modal fade" id="confirmRemoveBookModal-{{$book->id}}" tabindex="-1"
+                                             role="dialog"
+                                             aria-labelledby="confirmRemoveBookModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="confirmRemoveBookModalLabel">
+                                                            Deleting a book</h5>
+                                                        <button type="button" class="close" data-dismiss="modal"
+                                                                aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <p class="text-muted">Are you sure you want to delete
+                                                            this book? There is no
+                                                            way to restore it.</p>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary"
+                                                                data-dismiss="modal">Close
+                                                        </button>
+                                                        <form action="{{route('books.destroy',$book)}}"
+                                                              method="POST">
+                                                            @method('DELETE')
+                                                            @csrf
+                                                            <button type="submit" class="btn btn-danger">
+                                                                Confirm
+                                                            </button>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </td>
-
                             </tr>
                         @endforeach
                         </tbody>
 
                     </table>
-                    @endif
+                @endif
             </div>
-            <!-- End XP Col -->
         </div>
-        <!-- End XP Row -->
     </div>
-    <!-- End XP Contentbar -->
 @endsection
 @section('script')
 

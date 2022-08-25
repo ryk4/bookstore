@@ -30,6 +30,11 @@ class BookService
         return auth()->user()->books()->simplePaginate($paginate);
     }
 
+    public function getAllIncludingNotApproved()
+    {
+        return Book::orderBy('status')->get();
+    }
+
     public function getWithComments(Book $book): Book
     {
         return Book::with('comments.user')->find($book->id);;
@@ -62,6 +67,15 @@ class BookService
         }
 
         self::saveChangesToDatabase($book);
+
+        return $book;
+    }
+
+    public function approve(Book $book): Book
+    {
+        $book->update([
+            'status' => 1
+        ]);
 
         return $book;
     }

@@ -28,9 +28,11 @@ Route::get('/', function () {
 Route::group(['middleware' => 'checkRole:normal'], function () {
     Route::resource('books', BookController::class)->only(['create', 'store', 'edit', 'update', 'destroy']);
 
-    Route::get('/my-books', [BookController::class, 'userBooks'])->name('my-books.index');
-    Route::post('/{book}/report', [BookController::class, 'report'])->name('book.report');
-    Route::post('/search', [BookController::class, 'search'])->name('books.search');
+    Route::group(['prefix' => 'books', 'as' => 'books.'], function () {
+        Route::get('/my-books', [\App\Http\Controllers\User\BookController::class, 'index'])->name('my-books.index');
+        Route::post('/{book}/report', [BookController::class, 'report'])->name('report');
+        Route::post('/search', [BookController::class, 'search'])->name('search');
+    });
 });
 
 Route::resource('books', BookController::class)->only(['index', 'show']);
@@ -43,9 +45,10 @@ Route::group(['prefix' => 'user/settings', 'middleware' => 'checkRole:normal'], 
 });
 
 Route::group(['prefix' => 'admin/books', 'middleware' => 'checkRole:admin'], function () {
-    Route::get('/', [AdminController::class, 'index'])->name('admin.book.index');
-    Route::get('/manage', [AdminController::class, 'manage_menu_admin'])->name('manage_menu_admin');
-    Route::put('/{book}/approve', [AdminController::class, 'approve'])->name('admin.book.approve');
+    Route::get('/', [\App\Http\Controllers\Admin\BookController::class, 'index'])->name('admin.books.index');
+    Route::post('/{book}/approve', [\App\Http\Controllers\Admin\BookController::class, 'approve'])->name(
+        'admin.books.approve'
+    );
 });
 
 
