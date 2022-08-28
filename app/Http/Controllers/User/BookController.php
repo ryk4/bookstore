@@ -59,7 +59,7 @@ class BookController extends Controller
     {
         $this->bookService->store($request);
 
-        return redirect()->route('my-books.index')
+        return redirect()->route('books.index')
             ->with('status', 'Book created');
     }
 }
