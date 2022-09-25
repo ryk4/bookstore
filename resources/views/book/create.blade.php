@@ -86,7 +86,7 @@
                             </div>
                             <div class="d-flex justify-content-center my-4">
                                 <button class="btn btn-outline-success m-2 my-sm-0 " type="submit">Create</button>
-                                <a class="btn btn-outline-warning m-2 my-sm-0" href="{{route('my-books.index')}}">Cancel</a>
+                                <a class="btn btn-outline-warning m-2 my-sm-0" href="{{route('books.my-books.index')}}">Cancel</a>
                             </div>
 
                         </form>
